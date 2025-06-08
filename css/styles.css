@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Reset and base styles */
 * {
   box-sizing: border-box;
@@ -8,76 +6,90 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* default font */
+  line-height: 1.6; /* improve readability */
+  background-color: #f9f9f9; /* light background */
+  color: #333; /* dark gray text */
 }
 
 img {
-  max-width: 100%;
+  max-width: 100%; /* responsive images */
   height: auto;
   display: block;
 }
 
 /* Typography */
 h1, h2, h3 {
-  margin-bottom: 0.5em;
-  font-weight: 600;
+  margin-bottom: 0.5em; /* space below headings */
+  font-weight: 600; /* semi-bold headings */
 }
 
 p {
-  margin-bottom: 1em;
+  margin-bottom: 1em; /* space between paragraphs */
 }
 
 /* Layout */
 header, footer {
-  background-color: #1f1f1f;
-  color: #ffffff;
-  padding: 1em 2em;
+  background-color: #1f1f1f; /* dark background */
+  color: #ffffff; /* white text */
+  padding: 1em 2em; /* spacing */
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
+  display: flex; /* layout children in a row */
+  justify-content: space-between; /* space between left/right groups */
+  align-items: center; /* center items vertically */
+  gap: 1em; /* spacing between items */
+}
+
+.header-left {
+  display: flex; /* align logo and title */
   align-items: center;
+  gap: 1em; /* spacing between logo and title */
+}
+
+.logo-img img {
+  height: 80px; /* logo height */
+  width: auto; /* maintain aspect ratio */
+  display: block;
+  margin-right: 10px; /* spacing from title */
 }
 
 .logo a {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: white;
+  color: white; /* white text */
   text-decoration: none;
+  font-size: 1.5em; /* larger text for title */
+  font-weight: bold;
 }
 
 nav ul {
-  display: flex;
-  list-style: none;
-  gap: 1em;
+  display: flex; /* horizontal nav items */
+  list-style: none; /* remove bullets */
+  gap: 1.5em; /* spacing between links */
 }
 
 nav a {
-  color: white;
+  color: white; /* nav link color */
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 500; /* semi-bold */
 }
 
 nav a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* underline on hover */
 }
 
 main {
-  padding: 2em;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 2em; /* space around main content */
+  max-width: 1200px; /* limit width */
+  margin: 0 auto; /* center on page */
 }
 
 footer p {
-  margin: 0.5em 0;
+  margin: 0.5em 0; /* spacing between lines */
 }
 
 footer a {
-  color: #fff;
+  color: #fff; /* white links */
   text-decoration: none;
 }
 
@@ -85,37 +97,37 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Hero */
+/* Hero section */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/hero.jpg') center/cover;
-  color: white;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/hero.jpg') center/cover; /* background image */
+  color: white; /* white text */
   text-align: center;
-  padding: 5em 2em;
-  border-radius: 8px;
-  margin-bottom: 2em;
+  padding: 5em 2em; /* large padding */
+  border-radius: 8px; /* rounded corners */
+  margin-bottom: 2em; /* space below */
 }
 
 .hero h1 {
-  font-size: 2.5em;
+  font-size: 2.5em; /* large heading */
   margin-bottom: 0.5em;
 }
 
 .hero p {
-  font-size: 1.2em;
+  font-size: 1.2em; /* slightly larger paragraph */
 }
 
-/* Services */
+/* Services section */
 .services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2em;
+  display: grid; /* grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive columns */
+  gap: 2em; /* space between grid items */
 }
 
 .service {
   background: white;
   padding: 1.5em;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
 /* Projects Grid */
@@ -131,14 +143,14 @@ footer a:hover {
   padding: 1em;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease; /* slight zoom on hover */
 }
 
 .project-item:hover {
-  transform: scale(1.02);
+  transform: scale(1.02); /* zoom effect */
 }
 
-/* Forms */
+/* Contact & general forms */
 form {
   max-width: 600px;
   margin: auto;
