@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Machina Construction Ltd. - Contact</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo"><a href="index.html">Machina Construction Ltd.</a></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="company-history.html">Company History</a></li>
+        <li><a href="past-projects.html">Past Projects</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="health-safety.html">Health &amp; Safety</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main">
+    <h1>Contact Us</h1>
+    <form action="#" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
+      <div>
+        <label for="file">Attach File (optional):</label>
+        <input type="file" id="file" name="file" />
+      </div>
+      <!-- Honeypot field for spam prevention (hidden via CSS) -->
+      <div class="hp-field" aria-hidden="true" hidden="true">
+        <label for="website">Leave this field blank:</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <button type="submit">Send Message</button>
+    </form>
+  </main>
+  <footer>
+    <p><strong>Machina Construction Ltd.</strong></p>
+    <p>201 Spinnaker Way - Unit 11, Concorn, ON</p>
+    <p><a href="tel:4162743447">(416) 274-3447</a> | <a href="mailto:info@constructionco.com">info@machinaconstruction.com</a></p>
+    <p>&copy; 2025 Machina Construction Ltd. All rights reserved.</p>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
