@@ -34,3 +34,51 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// Simple carousel for .services-carousel
+(function() {
+  const track = document.querySelector('.carousel-track');
+  const slides = Array.from(track.children);
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const slideWidth = slides[0].getBoundingClientRect().width;
+  let currentIndex = 0;
+  let autoTimer;
+
+  // Arrange slides next to each other
+  slides.forEach((slide, i) => {
+    slide.style.left = (slideWidth * i) + 'px';
+  });
+
+  const moveToSlide = (index) => {
+    track.style.transform = 'translateX(-' + (slideWidth * index) + 'px)';
+    currentIndex = index;
+  };
+
+  // Button handlers
+  prevBtn.addEventListener('click', () => {
+    const newIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+    moveToSlide(newIndex);
+    resetAuto();
+  });
+  nextBtn.addEventListener('click', () => {
+    const newIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+    moveToSlide(newIndex);
+    resetAuto();
+  });
+
+  // Auto-rotate every 5 seconds
+  const startAuto = () => {
+    autoTimer = setInterval(() => {
+      nextBtn.click();
+    }, 5000);
+  };
+  const resetAuto = () => {
+    clearInterval(autoTimer);
+    startAuto();
+  };
+
+  // Initialize
+  moveToSlide(0);
+  startAuto();
+})();

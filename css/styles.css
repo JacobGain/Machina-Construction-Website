@@ -1,3 +1,5 @@
+/* styles.css */
+
 /* Reset and base styles */
 * {
   box-sizing: border-box;
@@ -6,90 +8,129 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* default font */
-  line-height: 1.6; /* improve readability */
-  background-color: #f9f9f9; /* light background */
-  color: #333; /* dark gray text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* default font */
+  line-height: 1.6;
+  /* improve readability */
+  background-color: #f9f9f9;
+  /* light background */
+  color: #333;
+  /* dark gray text */
 }
 
 img {
-  max-width: 100%; /* responsive images */
+  max-width: 100%;
+  /* responsive images */
   height: auto;
   display: block;
 }
 
 /* Typography */
-h1, h2, h3 {
-  margin-bottom: 0.5em; /* space below headings */
-  font-weight: 600; /* semi-bold headings */
+h1,
+h2,
+h3 {
+  margin-bottom: 0.5em;
+  /* space below headings */
+  font-weight: 600;
+  /* semi-bold headings */
 }
 
 p {
-  margin-bottom: 1em; /* space between paragraphs */
+  margin-bottom: 1em;
+  /* space between paragraphs */
 }
 
-/* Layout */
-header, footer {
-  background-color: #1f1f1f; /* dark background */
-  color: #ffffff; /* white text */
-  padding: 1em 2em; /* spacing */
+/* Layout for header and footer */
+header,
+footer {
+  background-color: #1f1f1f;
+  /* dark background */
+  color: #ffffff;
+  /* white text */
+  padding: 1em 2em;
+  /* spacing */
 }
 
+/* Header flex container */
 header {
-  display: flex; /* layout children in a row */
-  justify-content: space-between; /* space between left/right groups */
-  align-items: center; /* center items vertically */
-  gap: 1em; /* spacing between items */
+  display: flex;
+  /* layout children in a row */
+  justify-content: space-between;
+  /* space between left/right groups */
+  align-items: center;
+  /* center items vertically */
+  gap: 1em;
+  /* spacing between items */
 }
 
+/* Logo and title grouping */
 .header-left {
-  display: flex; /* align logo and title */
+  display: flex;
+  /* align logo and title */
   align-items: center;
-  gap: 1em; /* spacing between logo and title */
+  gap: 1em;
+  /* space between logo and title */
 }
 
 .logo-img img {
-  height: 80px; /* logo height */
-  width: auto; /* maintain aspect ratio */
+  height: 80px;
+  /* logo height */
+  width: auto;
+  /* maintain aspect ratio */
   display: block;
-  margin-right: 10px; /* spacing from title */
 }
 
 .logo a {
-  color: white; /* white text */
+  color: white;
+  /* white text */
   text-decoration: none;
-  font-size: 1.5em; /* larger text for title */
+  font-size: 1.5em;
+  /* larger title text */
   font-weight: bold;
 }
 
+/* Navigation menu */
 nav ul {
-  display: flex; /* horizontal nav items */
-  list-style: none; /* remove bullets */
-  gap: 1.5em; /* spacing between links */
+  display: flex;
+  /* horizontal nav items */
+  list-style: none;
+  /* remove bullets */
+  gap: 1.5em;
+  /* spacing between links */
 }
 
 nav a {
-  color: white; /* nav link color */
+  color: white;
+  /* nav link color */
   text-decoration: none;
-  font-weight: 500; /* semi-bold */
+  font-weight: 500;
+  /* semi-bold */
 }
 
 nav a:hover {
-  text-decoration: underline; /* underline on hover */
+  text-decoration: underline;
+  /* underline on hover */
 }
 
+/* Main content wrapper */
 main {
-  padding: 2em; /* space around main content */
-  max-width: 1200px; /* limit width */
-  margin: 0 auto; /* center on page */
+  padding: 2em;
+  /* space around content */
+  max-width: 1200px;
+  /* limit width for readability */
+  margin: 0 auto;
+  /* center on page */
 }
 
+/* Footer text spacing */
 footer p {
-  margin: 0.5em 0; /* spacing between lines */
+  margin: 0.5em 0;
+  /* spacing between lines */
 }
 
 footer a {
-  color: #fff; /* white links */
+  color: #fff;
+  /* white links */
   text-decoration: none;
 }
 
@@ -97,40 +138,157 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Hero section */
+/* Hero section styling */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/hero.jpg') center/cover; /* background image */
-  color: white; /* white text */
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/hero.jpg') center/cover;
+  color: white;
+  /* white text */
   text-align: center;
-  padding: 5em 2em; /* large padding */
-  border-radius: 8px; /* rounded corners */
-  margin-bottom: 2em; /* space below */
+  padding: 5em 2em;
+  /* large padding */
+  border-radius: 8px;
+  /* rounded corners */
+  margin-bottom: 2em;
+  /* space below */
 }
 
 .hero h1 {
-  font-size: 2.5em; /* large heading */
+  font-size: 2.5em;
+  /* large heading */
   margin-bottom: 0.5em;
 }
 
 .hero p {
-  font-size: 1.2em; /* slightly larger paragraph */
+  font-size: 1.2em;
+  /* slightly larger text */
 }
 
-/* Services section */
+/* Services section container */
 .services {
-  display: grid; /* grid layout */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive columns */
-  gap: 2em; /* space between grid items */
+  padding: 2em 0;
+  /* vertical spacing */
 }
 
+/* Services section heading */
+.services h2 {
+  font-size: 2.5em;
+  /* heading size */
+  margin-bottom: 0.75em;
+  /* space below heading */
+  text-align: center;
+  /* left-align heading */
+}
+
+.services h3 {
+  font-size: 2em;
+  text-align: center;
+  /* left-align heading */
+}
+
+/* Grid layout for service cards */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 2 columns layout */
+  gap: 2em;
+  /* space between cards */
+}
+
+/* Service card styling */
 .service {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background: white;
   padding: 1.5em;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* subtle shadow */
 }
 
-/* Projects Grid */
+.service img {
+  width: 100%;
+  /* full width image */
+  height: 180px;
+  /* fixed height */
+  object-fit: cover;
+  /* crop and cover */
+  border-radius: 4px;
+  margin-bottom: 1em;
+  /* space below image */
+}
+
+.service p {
+  font-size: 1rem;
+  /* slightly increased text size */
+  margin-top: 1em;
+  /* space above paragraphs */
+  line-height: 1.5;
+  /* improve readability */
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+
+/* Carousel container for services */
+.services-carousel {
+  position: relative;
+  max-width: 900px;
+  /* adjustable width */
+  margin: 0 auto;
+}
+
+/* Hide overflow for carousel */
+.carousel-track-container {
+  height: 600px;
+  overflow: hidden;
+}
+
+/* Flex track for slides */
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Each carousel slide full width */
+.carousel-slide {
+  min-width: 100%;
+  list-style: none;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Carousel navigation buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(31, 31, 31, 0.4);
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  padding: 0.2em 0.6em;
+  cursor: pointer;
+  z-index: 10;
+  /* ensure on top */
+}
+
+.carousel-btn.prev {
+  left: 0.2em;
+  /* left position */
+}
+
+.carousel-btn.next {
+  right: 0.2em;
+  /* right position */
+}
+
+.carousel-btn:hover {
+  background: rgba(31, 31, 31, 0.9);
+}
+
+/* Projects gallery grid */
 .project-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -143,14 +301,15 @@ footer a:hover {
   padding: 1em;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease; /* slight zoom on hover */
+  transition: transform 0.2s ease;
 }
 
 .project-item:hover {
-  transform: scale(1.02); /* zoom effect */
+  transform: scale(1.02);
+  /* slight zoom on hover */
 }
 
-/* Contact & general forms */
+/* Forms styling */
 form {
   max-width: 600px;
   margin: auto;
@@ -170,7 +329,8 @@ form label {
   font-weight: bold;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   width: 100%;
   padding: 0.75em;
   border: 1px solid #ccc;
@@ -190,7 +350,7 @@ form button:hover {
   background-color: #333;
 }
 
-/* Fade-In Animation */
+/* Fade-in animation for scroll effects */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
