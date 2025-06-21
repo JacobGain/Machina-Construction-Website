@@ -1,23 +1,27 @@
 // Main JavaScript for interactive behaviors
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Scroll-based fade-in effect for elements with class 'fade-in'
-  const options = {
-    threshold: 0.1
-  };
-  const observer = new IntersectionObserver(function (entries, obs) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, options);
-  // Observe all elements with the 'fade-in' class
-  document.querySelectorAll('.fade-in').forEach(function (el) {
-    observer.observe(el);
-  });
+// Grab all elements you want to fade
+const fadeEls = document.querySelectorAll('.fade-in');
 
+// Create an IntersectionObserver that toggles the 'visible' class
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Element has come into view → fade in
+      entry.target.classList.add('visible');
+    } else {
+      // Element has gone out of view → fade out
+      entry.target.classList.remove('visible');
+    }
+  });
+}, {
+  threshold: 0.1  // adjust as needed (10% visible)
+});
+
+// Observe each element
+fadeEls.forEach(el => observer.observe(el));
+
+document.addEventListener('DOMContentLoaded', function () {
   // Toggle project details popup/expand on Past Projects page
   document.querySelectorAll('.more-info').forEach(function (button) {
     button.addEventListener('click', function (event) {

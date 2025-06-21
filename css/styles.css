@@ -1,7 +1,7 @@
 /* styles.css */
 
 /* ---------------------------------------------
-   Reset and Base Styles
+   1. Reset and Base Styles
 --------------------------------------------- */
 * {
   box-sizing: border-box;
@@ -28,7 +28,7 @@ img {
 }
 
 /* ---------------------------------------------
-   Typography
+   2. Typography
 --------------------------------------------- */
 h1,
 h2,
@@ -45,7 +45,7 @@ p {
 }
 
 /* ---------------------------------------------
-   Header & Footer
+   3. Header & Footer
 --------------------------------------------- */
 header,
 footer {
@@ -68,13 +68,12 @@ header {
   /* spacing between items */
 }
 
-/* Logo + Title Container */
+/* Logo + Title */
 .header-left {
   display: flex;
-  /* align logo and text */
   align-items: center;
   gap: 1em;
-  /* space between logo and title */
+  /* between logo and title */
 }
 
 .logo-img img {
@@ -82,7 +81,6 @@ header {
   /* fixed logo height */
   width: auto;
   /* maintain aspect ratio */
-  display: block;
 }
 
 .logo a {
@@ -117,7 +115,6 @@ nav a:hover {
   /* hover effect */
 }
 
-/* Footer Text */
 footer p {
   margin: 0.5em 0;
   /* vertical spacing */
@@ -125,7 +122,7 @@ footer p {
 
 footer a {
   color: #fff;
-  /* footer links */
+  /* footer link color */
   text-decoration: none;
 }
 
@@ -134,7 +131,7 @@ footer a:hover {
 }
 
 /* ---------------------------------------------
-   Main Content Wrapper
+   4. Main Content Wrapper
 --------------------------------------------- */
 main {
   padding: 2em;
@@ -146,7 +143,7 @@ main {
 }
 
 /* ---------------------------------------------
-   Hero Section
+   5. Hero Section
 --------------------------------------------- */
 .hero {
   background:
@@ -167,7 +164,6 @@ main {
 .hero h1 {
   font-size: 2.5em;
   /* large heading */
-  margin-bottom: 0.5em;
 }
 
 .hero p {
@@ -176,13 +172,15 @@ main {
 }
 
 /* ---------------------------------------------
-   Services Section
+   6. Services Section (Grid and Carousel)
 --------------------------------------------- */
+/* Section container */
 .services {
   padding: 2em 0;
   /* vertical spacing */
 }
 
+/* Heading */
 .services h2 {
   font-size: 2.5em;
   /* section heading */
@@ -191,7 +189,7 @@ main {
   /* center title */
 }
 
-/* Grid wrapper for cards (2×2 layout) */
+/* Grid layout (2×2) */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -209,7 +207,6 @@ main {
   /* subtle shadow */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
 .service img {
@@ -218,7 +215,7 @@ main {
   height: 180px;
   /* fixed height */
   object-fit: cover;
-  /* crop and cover */
+  /* crop to fill */
   border-radius: 4px;
   margin-bottom: 1em;
   /* space below image */
@@ -228,8 +225,6 @@ main {
   font-size: 2em;
   /* card title */
   text-align: center;
-  /* center title */
-  margin-bottom: 0.5em;
 }
 
 .service p {
@@ -244,9 +239,7 @@ main {
   margin-right: 3em;
 }
 
-/* ---------------------------------------------
-   Services Carousel Overrides
---------------------------------------------- */
+/* Carousel overrides */
 .services-carousel {
   position: relative;
   max-width: 900px;
@@ -259,7 +252,7 @@ main {
   height: 600px;
   /* fixed height */
   overflow: hidden;
-  /* hide off-screen slides */
+  /* hide off-screen */
 }
 
 .carousel-track {
@@ -275,7 +268,6 @@ main {
   align-items: stretch;
 }
 
-/* Prev/Next Buttons */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -307,7 +299,121 @@ main {
 }
 
 /* ---------------------------------------------
-   Projects Gallery
+   7. Vertical Timeline (Flex-based, alternating flush)
+--------------------------------------------- */
+.timeline {
+  position: relative;
+  margin: 4em 0;
+  padding: 0 1em;
+}
+
+/* center line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #ccc;
+  transform: translateX(-50%);
+}
+
+/* reset .milestone margins and flex-direction */
+.milestone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: calc(50% - 40px); /* half container minus gutter */
+  padding: 1em;
+  box-sizing: border-box;
+  /* NO more margin: auto; */
+}
+
+/* odd items → left of line */
+.timeline .milestone:nth-child(odd) {
+  justify-content: flex-end;   /* push the block up against the center */
+  margin-right: auto;          /* grow right-side gutter */
+  text-align: left;
+}
+
+/* even items → right of line */
+.timeline .milestone:nth-child(even) {
+  justify-content: flex-start; /* push block up against the center */
+  margin-left: auto;           /* grow left-side gutter */
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+/* connector bar (40px wide = our gutter) */
+.milestone::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 4px;
+  background: #ccc;
+}
+
+/* connector for odd (left) items */
+.timeline .milestone:nth-child(odd)::before {
+  right: -40px;  /* reaches into the center line */
+}
+
+/* connector for even (right) items */
+.timeline .milestone:nth-child(even)::before {
+  left: -40px;   /* reaches into the center line */
+}
+
+/* image styling */
+.milestone img {
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  margin: 0 1em;
+  flex-shrink: 0;
+}
+
+/* text container */
+.milestone-text {
+  flex: 1;
+}
+
+/* fade-in (unchanged) */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* mobile: full-width under the line */
+@media (max-width: 768px) {
+  .timeline {
+    padding: 0 1em;
+  }
+  .timeline::before {
+    left: 1em;
+  }
+  .milestone {
+    width: 100% !important;
+    margin: 1.5em 0;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding-left: 3em;
+  }
+  .milestone::before {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------
+   8. Projects Gallery
 --------------------------------------------- */
 .project-gallery {
   display: grid;
@@ -330,7 +436,7 @@ main {
 }
 
 /* ---------------------------------------------
-   Form Styles
+   9. Form Styles
 --------------------------------------------- */
 form {
   max-width: 600px;
@@ -373,7 +479,7 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   Fade-In Animation
+   10. Fade-In Animation
 --------------------------------------------- */
 .fade-in {
   opacity: 0;
