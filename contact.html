@@ -44,10 +44,12 @@
         <label for="message">Message:</label>
         <textarea id="message" name="message" rows="5" required></textarea>
       </div>
-      <div>
-        <label for="file">Attach File (optional):</label>
-        <input type="file" id="file" name="file" />
+      <div class="file-upload">
+        <label for="file">Attach Files (optional):</label>
+        <input type="file" id="file" name="file" multiple />
+        <div class="file-list"></div>
       </div>
+
       <!-- Honeypot field for spam prevention (hidden via CSS) -->
       <div class="hp-field" aria-hidden="true" hidden="true">
         <label for="website">Leave this field blank:</label>

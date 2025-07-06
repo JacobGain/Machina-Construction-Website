@@ -1,88 +1,126 @@
-// Main JavaScript for interactive behaviors
+// main.js
 
-// Grab all elements you want to fade
-const fadeEls = document.querySelectorAll('.fade-in');
+document.addEventListener('DOMContentLoaded', () => {
+  // ────────────────────────────────────────────
+  // 1) Fade-In / Fade-Out on Scroll
+  // ────────────────────────────────────────────
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('visible', entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => fadeObserver.observe(el));
 
-// Create an IntersectionObserver that toggles the 'visible' class
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      // Element has come into view → fade in
-      entry.target.classList.add('visible');
-    } else {
-      // Element has gone out of view → fade out
-      entry.target.classList.remove('visible');
-    }
-  });
-}, {
-  threshold: 0.1  // adjust as needed (10% visible)
-});
-
-// Observe each element
-fadeEls.forEach(el => observer.observe(el));
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Toggle project details popup/expand on Past Projects page
-  document.querySelectorAll('.more-info').forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      const detailsId = button.getAttribute('aria-controls');
-      const details = document.getElementById(detailsId);
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      if (details) {
-        // Toggle the visibility of the project details
-        details.hidden = expanded;
-        // Update aria-expanded attribute on the button
-        button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-      }
+  // ────────────────────────────────────────────
+  // 2) “Show more info” / “Hide info” Toggle
+  // ────────────────────────────────────────────
+  document.querySelectorAll('.more-info').forEach(button => {
+    button.addEventListener('click', () => {
+      const panel = document.getElementById(button.getAttribute('aria-controls'));
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+      panel.hidden = isOpen;
+      button.setAttribute('aria-expanded', String(!isOpen));
+      button.textContent = isOpen ? 'Show more info' : 'Hide info';
     });
   });
-});
 
-// Simple carousel for .services-carousel
-(function () {
-  const track = document.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
-  const slideWidth = slides[0].getBoundingClientRect().width;
-  let currentIndex = 0;
-  let autoTimer;
+  // ────────────────────────────────────────────
+  // 3) Services Carousel (auto-rotating, Prev/Next)
+  // ────────────────────────────────────────────
+  (function () {
+    const track = document.querySelector('.carousel-track');
+    if (!track) return;  // not on this page
+    const slides = Array.from(track.children);
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    let currentIndex = 0, autoTimer;
 
-  // Arrange slides next to each other
-  slides.forEach((slide, i) => {
-    slide.style.left = (slideWidth * i) + 'px';
-  });
+    // Position slides
+    slides.forEach((slide, i) => {
+      slide.style.left = `${slideWidth * i}px`;
+    });
 
-  const moveToSlide = (index) => {
-    track.style.transform = 'translateX(-' + (slideWidth * index) + 'px)';
-    currentIndex = index;
-  };
+    const moveTo = index => {
+      track.style.transform = `translateX(-${slideWidth * index}px)`;
+      currentIndex = index;
+    };
 
-  // Button handlers
-  prevBtn.addEventListener('click', () => {
-    const newIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-    moveToSlide(newIndex);
-    resetAuto();
-  });
-  nextBtn.addEventListener('click', () => {
-    const newIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-    moveToSlide(newIndex);
-    resetAuto();
-  });
+    // Prev/Next handlers
+    prevBtn.addEventListener('click', () => {
+      moveTo((currentIndex === 0) ? slides.length - 1 : currentIndex - 1);
+      resetAuto();
+    });
+    nextBtn.addEventListener('click', () => {
+      moveTo((currentIndex + 1) % slides.length);
+      resetAuto();
+    });
 
-  // Auto-rotate every 5 seconds
-  const startAuto = () => {
-    autoTimer = setInterval(() => {
-      nextBtn.click();
-    }, 5000);
-  };
-  const resetAuto = () => {
-    clearInterval(autoTimer);
+    // Auto-rotate
+    const startAuto = () => {
+      autoTimer = setInterval(() => nextBtn.click(), 5000);
+    };
+    const resetAuto = () => {
+      clearInterval(autoTimer);
+      startAuto();
+    };
+
+    moveTo(0);
     startAuto();
-  };
+  })();
 
-  // Initialize
-  moveToSlide(0);
-  startAuto();
-})();
+  // ──────
+  // 4) File Upload: persistent add/remove using DataTransfer
+  // ──────
+  ; (function () {
+    const fileInput = document.getElementById('file');
+    const fileList = document.querySelector('.file-list');
+    if (!fileInput || !fileList) return;
+
+    // Use a single DataTransfer to store ALL the files
+    const dt = new DataTransfer();
+
+    // Render pills from dt.files
+    function render() {
+      fileList.innerHTML = '';
+      Array.from(dt.files).forEach((file, i) => {
+        const pill = document.createElement('div');
+        pill.className = 'file-item';
+
+        const name = document.createElement('span');
+        name.textContent = file.name;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'remove-file';
+        btn.setAttribute('aria-label', `Remove ${file.name}`);
+        btn.textContent = '×';
+        btn.addEventListener('click', () => {
+          // Remove this file from DataTransfer
+          dt.items.remove(i);
+          // Update the input’s FileList
+          fileInput.files = dt.files;
+          // Re-render pills
+          render();
+        });
+
+        pill.append(name, btn);
+        fileList.append(pill);
+      });
+    }
+
+    // When the user picks files, append them into dt
+    fileInput.addEventListener('change', (e) => {
+      Array.from(e.target.files).forEach(file => {
+        dt.items.add(file);
+      });
+      // Reflect back into the native input
+      fileInput.files = dt.files;
+      render();
+      // Clear the native picker so the next time you open it, 
+      // you only get newly-selected files
+      e.target.value = '';
+    });
+  })();
+});
