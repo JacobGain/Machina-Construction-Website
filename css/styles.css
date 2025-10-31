@@ -248,6 +248,10 @@ main {
   /* center */
 }
 
+.carousel {
+  position: relative;
+}
+
 .carousel-track-container {
   height: 600px;
   /* fixed height */
@@ -268,7 +272,8 @@ main {
   align-items: stretch;
 }
 
-.carousel-btn {
+.carousel .carousel-btn,
+.services-carousel .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -283,17 +288,18 @@ main {
   /* above slides */
 }
 
-.carousel-btn.prev {
+.carousel .carousel-btn.prev,
+.services-carousel .carousel-btn.prev {
   left: 0.2em;
-  /* left position */
 }
 
-.carousel-btn.next {
+.carousel .carousel-btn.next,
+.services-carousel .carousel-btn.next {
   right: 0.2em;
-  /* right position */
 }
 
-.carousel-btn:hover {
+.carousel .carousel-btn:hover,
+.services-carousel .carousel-btn:hover {
   background: rgba(31, 31, 31, 0.9);
   /* darker on hover */
 }
@@ -428,23 +434,64 @@ main {
 --------------------------------------------- */
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5em;
-  margin-top: 2em;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* exactly 2 per row */
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .project-item {
-  background: white;
-  padding: 1em;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-item:hover {
-  transform: scale(1.02);
-  /* zoom on hover */
+  transform: translateY(-2px) scale(1.01);
 }
+
+/* Larger image area inside the card */
+.project-item .carousel-track-container {
+  height: 420px;             /* bump this up/down to taste */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.project-item .carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Typography & spacing in cards */
+.project-item h2 {
+  font-size: 1.5rem;
+  margin-top: 0.9rem;
+}
+
+.project-item p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.project-item .more-info {
+  font-weight: 600;
+}
+
+/* Responsive: 1-per-row on smaller screens + shorter image height */
+@media (max-width: 900px) {
+  .project-gallery {
+    grid-template-columns: 1fr;
+  }
+  .project-item .carousel-track-container {
+    height: 300px;
+  }
+}
+
 
 /* ---------------------------------------------
    Projects Gallery: Full-width “View More” button
@@ -538,13 +585,14 @@ form button:hover {
 .file-upload input[type="file"] {
   display: block;
   margin-top: 0.5em;
-    /* make all the inline text invisible */
+  /* make all the inline text invisible */
   color: transparent;
 }
 
 /* restore the button’s text color so “Browse” still shows */
 .file-upload input[type="file"]::file-selector-button {
-  color: initial;     /* use browser’s default button text color */
+  color: initial;
+  /* use browser’s default button text color */
 }
 
 .file-upload .file-list {

@@ -12,7 +12,7 @@
   <header>
     <div class="header-left">
       <a href="index.html" class="logo-img">
-        <img src="./images/Machina-Logo.png" alt="Machina Construction Logo" />
+        <img src="./images/logos-and-misc/Machina-Logo.png" alt="Machina Construction Logo" />
       </a>
       <div class="logo">
         <a href="index.html">Machina Construction Ltd.</a>
@@ -33,46 +33,161 @@
     <h1>Past Projects</h1>
     <!-- Gallery of past projects -->
     <section class="project-gallery">
+      <!-- inside <section class="project-gallery"> ... -->
+
       <article class="project-item">
-        <img src="./images/project-sample.jpg" alt="Project 1 Thumbnail" />
+        <!-- NEW: project carousel -->
+        <div class="carousel project-carousel" data-auto="5000" aria-label="Project 1 gallery">
+          <button class="carousel-btn prev" aria-label="Previous image">‹</button>
+
+          <div class="carousel-track-container">
+            <ul class="carousel-track">
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-1\project-1-a.JPEG" alt="Project 1 - image 1" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-1\project-1-b.JPEG" alt="Project 1 - image 2" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-1\project-1-c.JPEG" alt="Project 1 - image 3" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-1\project-1-d.JPEG" alt="Project 1 - image 4" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-1\project-1-e.JPEG" alt="Project 1 - image 5" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-1\project-1-f.JPEG" alt="Project 1 - image 6" />
+              </li>
+            </ul>
+          </div>
+
+          <button class="carousel-btn next" aria-label="Next image">›</button>
+        </div>
+
         <h2>Project 1</h2>
         <p>Short description of Project 1. Lorem ipsum dolor sit amet.</p>
-        <button type="button" class="more-info" aria-expanded="false" aria-controls="project1-details">Show more
+        <button type="button" class="more-info" aria-expanded="false" aria-controls="project1-details">Show detailed
           info</button>
         <div id="project1-details" class="project-details" hidden>
           <p>Detailed information about Project 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             non nulla sit amet nisl.</p>
         </div>
       </article>
+
       <article class="project-item">
-        <img src="./images/project-sample.jpg" alt="Project 2 Thumbnail" />
+        <div class="carousel project-carousel" data-auto="5000" aria-label="Project 2 gallery">
+          <button class="carousel-btn prev" aria-label="Previous image">‹</button>
+          <div class="carousel-track-container">
+            <ul class="carousel-track">
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-2\project-2-a.JPG" alt="Project 2 - image 1" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-2\project-2-b.JPEG" alt="Project 2 - image 2" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-2\project-2-c.JPEG" alt="Project 2 - image 3" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-2\project-2-d.JPEG" alt="Project 2 - image 4" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-2\project-2-e.JPEG" alt="Project 2 - image 5" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-2\project-2-f.JPEG" alt="Project 2 - image 6" />
+              </li>
+            </ul>
+          </div>
+          <button class="carousel-btn next" aria-label="Next image">›</button>
+        </div>
+
         <h2>Project 2</h2>
         <p>Short description of Project 2. Lorem ipsum dolor sit amet.</p>
-        <button type="button" class="more-info" aria-expanded="false" aria-controls="project2-details">Show more
+        <button type="button" class="more-info" aria-expanded="false" aria-controls="project2-details">Show detailed
           info</button>
         <div id="project2-details" class="project-details" hidden>
           <p>Detailed information about Project 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             non nulla sit amet nisl.</p>
         </div>
       </article>
+
       <article class="project-item">
-        <img src="./images/project-sample.jpg" alt="Project 3 Thumbnail" />
+        <div class="carousel project-carousel" data-auto="5000" aria-label="Project 3 gallery">
+          <button class="carousel-btn prev" aria-label="Previous image">‹</button>
+          <div class="carousel-track-container">
+            <ul class="carousel-track">
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-3\project-3-a.JPEG" alt="Project 3 - image 1" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-3\project-3-b.JPEG" alt="Project 3 - image 2" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-3\project-3-c.JPEG" alt="Project 3 - image 3" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-3\project-3-d.JPEG" alt="Project 3 - image 4" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-3\project-1-e.JPEG" alt="Project 3 - image 5" />
+              </li>
+            </ul>
+          </div>
+          <button class="carousel-btn next" aria-label="Next image">›</button>
+        </div>
+
         <h2>Project 3</h2>
         <p>Short description of Project 3. Lorem ipsum dolor sit amet.</p>
-        <button type="button" class="more-info" aria-expanded="false" aria-controls="project1-details">Show more
+        <button type="button" class="more-info" aria-expanded="false" aria-controls="project3-details">Show detailed
           info</button>
-        <div id="project1-details" class="project-details" hidden>
+        <div id="project3-details" class="project-details" hidden>
           <p>Detailed information about Project 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             non nulla sit amet nisl.</p>
         </div>
       </article>
+
       <article class="project-item">
-        <img src="./images/project-sample.jpg" alt="Project 4 Thumbnail" />
+        <div class="carousel project-carousel" data-auto="5000" aria-label="Project 4 gallery">
+          <button class="carousel-btn prev" aria-label="Previous image">‹</button>
+          <div class="carousel-track-container">
+            <ul class="carousel-track">
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-a.JPEG" alt="Project 4 - image 1" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-b.JPEG" alt="Project 4 - image 2" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-c.JPG" alt="Project 4 - image 3" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-d.JPEG" alt="Project 4 - image 4" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-e.JPEG" alt="Project 4 - image 5" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-f.JPG" alt="Project 4 - image 6" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-g.JPEG" alt="Project 4 - image 7" />
+              </li>
+              <li class="carousel-slide">
+                <img src="./images\past-projects-page\project-4\project-4-h.JPEG" alt="Project 4 - image 8" />
+              </li>
+            </ul>
+          </div>
+          <button class="carousel-btn next" aria-label="Next image">›</button>
+        </div>
+
         <h2>Project 4</h2>
         <p>Short description of Project 4. Lorem ipsum dolor sit amet.</p>
-        <button type="button" class="more-info" aria-expanded="false" aria-controls="project2-details">Show more
+        <button type="button" class="more-info" aria-expanded="false" aria-controls="project4-details">Show detailed
           info</button>
-        <div id="project2-details" class="project-details" hidden>
+        <div id="project4-details" class="project-details" hidden>
           <p>Detailed information about Project 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             non nulla sit amet nisl.</p>
         </div>

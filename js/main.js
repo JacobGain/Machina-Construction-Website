@@ -28,46 +28,87 @@ document.addEventListener('DOMContentLoaded', () => {
   // ────────────────────────────────────────────
   // 3) Services Carousel (auto-rotating, Prev/Next)
   // ────────────────────────────────────────────
+  // ────────────────────────────────────────────
+  // 3) Carousels (home services + per-project)
+  //    - supports multiple instances
+  //    - auto-rotate per carousel via data-auto (ms)
+  // ────────────────────────────────────────────
   (function () {
-    const track = document.querySelector('.carousel-track');
-    if (!track) return;  // not on this page
-    const slides = Array.from(track.children);
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    let currentIndex = 0, autoTimer;
+    const carousels = document.querySelectorAll('.carousel');
+    if (!carousels.length) return;
 
-    // Position slides
-    slides.forEach((slide, i) => {
-      slide.style.left = `${slideWidth * i}px`;
-    });
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector('.carousel-track');
+      const slides = Array.from(track.children);
+      const prevBtn = carousel.querySelector('.carousel-btn.prev');
+      const nextBtn = carousel.querySelector('.carousel-btn.next');
 
-    const moveTo = index => {
-      track.style.transform = `translateX(-${slideWidth * index}px)`;
-      currentIndex = index;
-    };
+      if (!slides.length) return;
 
-    // Prev/Next handlers
-    prevBtn.addEventListener('click', () => {
-      moveTo((currentIndex === 0) ? slides.length - 1 : currentIndex - 1);
-      resetAuto();
-    });
-    nextBtn.addEventListener('click', () => {
-      moveTo((currentIndex + 1) % slides.length);
-      resetAuto();
-    });
+      let slideWidth = carousel.querySelector('.carousel-track-container').getBoundingClientRect().width;
+      let currentIndex = 0;
+      let autoTimer = null;
+      const autoMs = Number(carousel.getAttribute('data-auto') || 0);
 
-    // Auto-rotate
-    const startAuto = () => {
-      autoTimer = setInterval(() => nextBtn.click(), 5000);
-    };
-    const resetAuto = () => {
-      clearInterval(autoTimer);
+      // Position slides side-by-side
+      function layout() {
+        slideWidth = carousel.querySelector('.carousel-track-container').getBoundingClientRect().width;
+        slides.forEach((slide, i) => {
+          slide.style.minWidth = `${slideWidth}px`;
+          slide.style.left = `${slideWidth * i}px`;
+        });
+        moveTo(currentIndex, false);
+      }
+
+      function moveTo(index, animate = true) {
+        const clamped = (index + slides.length) % slides.length;
+        if (!animate) track.style.transition = 'none';
+        track.style.transform = `translateX(-${slideWidth * clamped}px)`;
+        if (!animate) {
+          // force reflow then restore transition
+          void track.offsetWidth;
+          track.style.transition = '';
+        }
+        currentIndex = clamped;
+      }
+
+      function next() { moveTo(currentIndex + 1); }
+      function prev() { moveTo(currentIndex - 1); }
+
+      // Buttons
+      prevBtn?.addEventListener('click', () => { prev(); resetAuto(); });
+      nextBtn?.addEventListener('click', () => { next(); resetAuto(); });
+
+      // Keyboard (when buttons focused)
+      [prevBtn, nextBtn].forEach(btn => {
+        btn?.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') { prev(); resetAuto(); }
+          if (e.key === 'ArrowRight') { next(); resetAuto(); }
+        });
+      });
+
+      // Auto-rotate per carousel
+      function startAuto() {
+        if (!autoMs) return;
+        stopAuto();
+        autoTimer = setInterval(next, autoMs);
+      }
+      function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
+      function resetAuto() { if (autoMs) { stopAuto(); startAuto(); } }
+
+      // Pause auto on hover/focus (nicer UX)
+      carousel.addEventListener('mouseenter', stopAuto);
+      carousel.addEventListener('mouseleave', startAuto);
+      carousel.addEventListener('focusin', stopAuto);
+      carousel.addEventListener('focusout', startAuto);
+
+      // Handle resize
+      window.addEventListener('resize', () => layout());
+
+      // Init
+      layout();
       startAuto();
-    };
-
-    moveTo(0);
-    startAuto();
+    });
   })();
 
   // ──────
