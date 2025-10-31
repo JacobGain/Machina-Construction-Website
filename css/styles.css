@@ -9,20 +9,22 @@
   padding: 0;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* default font */
   line-height: 1.6;
-  /* improve readability */
   background-color: #f9f9f9;
-  /* light background */
   color: #333;
-  /* dark gray text */
+  -webkit-tap-highlight-color: transparent;
 }
 
 img {
   max-width: 100%;
-  /* responsive images */
   height: auto;
   display: block;
 }
@@ -34,14 +36,11 @@ h1,
 h2,
 h3 {
   margin-bottom: 0.5em;
-  /* space below headings */
   font-weight: 600;
-  /* semi-bold headings */
 }
 
 p {
   margin-bottom: 1em;
-  /* space between paragraphs */
 }
 
 /* ---------------------------------------------
@@ -50,22 +49,17 @@ p {
 header,
 footer {
   background-color: #1f1f1f;
-  /* dark background */
   color: #ffffff;
-  /* white text */
   padding: 1em 2em;
-  /* spacing */
 }
 
 header {
   display: flex;
-  /* layout children in a row */
   justify-content: space-between;
-  /* space between logo/title and nav */
   align-items: center;
-  /* center vertically */
   gap: 1em;
-  /* spacing between items */
+  flex-wrap: wrap;
+  /* allow wrapping on smaller screens */
 }
 
 /* Logo + Title */
@@ -73,56 +67,51 @@ header {
   display: flex;
   align-items: center;
   gap: 1em;
-  /* between logo and title */
+  min-width: 0;
 }
 
 .logo-img img {
   height: 80px;
-  /* fixed logo height */
   width: auto;
-  /* maintain aspect ratio */
 }
 
 .logo a {
   color: white;
-  /* title text color */
   text-decoration: none;
   font-size: 1.5em;
-  /* larger title text */
   font-weight: bold;
+  display: inline-block;
+  line-height: 1.1;
+  word-break: break-word;
 }
 
 /* Navigation */
 nav ul {
   display: flex;
-  /* horizontal list */
   list-style: none;
-  /* remove bullets */
   gap: 1.5em;
-  /* spacing between links */
+  align-items: center;
+  flex-wrap: wrap;
+  /* wrap links to next line if needed */
+  padding-top: 0.25rem;
 }
 
 nav a {
   color: white;
-  /* link color */
   text-decoration: none;
   font-weight: 500;
-  /* semi-bold */
 }
 
 nav a:hover {
   text-decoration: underline;
-  /* hover effect */
 }
 
 footer p {
   margin: 0.5em 0;
-  /* vertical spacing */
 }
 
 footer a {
   color: #fff;
-  /* footer link color */
   text-decoration: none;
 }
 
@@ -135,11 +124,8 @@ footer a:hover {
 --------------------------------------------- */
 main {
   padding: 2em;
-  /* inner spacing */
   max-width: 1200px;
-  /* limit width for readability */
   margin: 0 auto;
-  /* center container */
 }
 
 /* ---------------------------------------------
@@ -147,95 +133,99 @@ main {
 --------------------------------------------- */
 .hero {
   background:
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url('../images/hero.jpg') center/cover;
-  /* overlay + image */
-  color: white;
-  /* text color */
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url('../images/home-page/hero.jpg') center/contain no-repeat;
+  background-color: #000;
+
+  color: #fff;
   text-align: center;
-  padding: 5em 2em;
-  /* generous padding */
+
+  display: grid;
+  justify-items: center; /* horizontally center text */
+  align-content: start;  /* move text group upward */
+
+  /* roughly one-quarter down from the top */
+  padding-top: 20vh;
+  padding-bottom: 2em;
+
+  gap: 0.25rem;
+
+  --hero-min: clamp(420px, 65vh, 780px);
+  min-height: var(--hero-min);
+
   border-radius: 8px;
-  /* rounded corners */
   margin-bottom: 2em;
-  /* space below */
+
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
 
 .hero h1 {
-  font-size: 2.5em;
-  /* large heading */
+  font-size: clamp(2rem, 3.5vw + 1rem, 3.25rem);
+  margin-bottom: 0.15em;
 }
 
 .hero p {
-  font-size: 1.2em;
-  /* slightly larger text */
+  font-size: clamp(1rem, 1.25vw + 0.8rem, 1.3rem);
+  line-height: 1.3;
+  margin-top: 0;
+}
+
+/* optional: tighter top spacing on smaller screens */
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 12vh;
+    --hero-min: 340px;
+    gap: 0.15rem;
+  }
 }
 
 /* ---------------------------------------------
    6. Services Section (Grid and Carousel)
 --------------------------------------------- */
-/* Section container */
 .services {
   padding: 2em 0;
-  /* vertical spacing */
 }
 
-/* Heading */
 .services h2 {
   font-size: 2.5em;
-  /* section heading */
   margin-bottom: 0.75em;
   text-align: center;
-  /* center title */
 }
 
 /* Grid layout (2×2) */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* two columns */
   gap: 2em;
-  /* spacing between cards */
 }
 
-/* Individual service card */
 .service {
   background: white;
   padding: 1.5em;
   border-radius: 6px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* subtle shadow */
   display: flex;
   flex-direction: column;
 }
 
 .service img {
   width: 100%;
-  /* full-width image */
   height: 180px;
-  /* fixed height */
   object-fit: cover;
-  /* crop to fill */
   border-radius: 4px;
   margin-bottom: 1em;
-  /* space below image */
 }
 
 .service h3 {
   font-size: 2em;
-  /* card title */
   text-align: center;
 }
 
 .service p {
   font-size: 1rem;
-  /* paragraph size */
   line-height: 1.5;
-  /* readability */
   margin-top: 1em;
-  /* space above text */
   margin-left: 3em;
-  /* side padding */
   margin-right: 3em;
 }
 
@@ -243,9 +233,7 @@ main {
 .services-carousel {
   position: relative;
   max-width: 900px;
-  /* wider display */
   margin: 0 auto;
-  /* center */
 }
 
 .carousel {
@@ -254,9 +242,8 @@ main {
 
 .carousel-track-container {
   height: 600px;
-  /* fixed height */
+  /* desktop default */
   overflow: hidden;
-  /* hide off-screen */
 }
 
 .carousel-track {
@@ -266,7 +253,6 @@ main {
 
 .carousel-slide {
   min-width: 100%;
-  /* one slide visible */
   list-style: none;
   display: flex;
   align-items: stretch;
@@ -278,14 +264,12 @@ main {
   top: 50%;
   transform: translateY(-50%);
   background: rgba(31, 31, 31, 0.4);
-  /* semi-transparent */
   border: none;
   color: #fff;
   font-size: 2em;
   padding: 0.2em 0.6em;
   cursor: pointer;
   z-index: 10;
-  /* above slides */
 }
 
 .carousel .carousel-btn.prev,
@@ -301,7 +285,6 @@ main {
 .carousel .carousel-btn:hover,
 .services-carousel .carousel-btn:hover {
   background: rgba(31, 31, 31, 0.9);
-  /* darker on hover */
 }
 
 /* ---------------------------------------------
@@ -313,7 +296,6 @@ main {
   padding: 0 1em;
 }
 
-/* center line */
 .timeline::before {
   content: "";
   position: absolute;
@@ -325,38 +307,28 @@ main {
   transform: translateX(-50%);
 }
 
-/* reset .milestone margins and flex-direction */
 .milestone {
   position: relative;
   display: flex;
   align-items: center;
   width: calc(50% - 40px);
-  /* half container minus gutter */
   padding: 1em;
   box-sizing: border-box;
-  /* NO more margin: auto; */
 }
 
-/* odd items → left of line */
 .timeline .milestone:nth-child(odd) {
   justify-content: flex-end;
-  /* push the block up against the center */
   margin-right: auto;
-  /* grow right-side gutter */
   text-align: left;
 }
 
-/* even items → right of line */
 .timeline .milestone:nth-child(even) {
   justify-content: flex-start;
-  /* push block up against the center */
   margin-left: auto;
-  /* grow left-side gutter */
   text-align: right;
   flex-direction: row-reverse;
 }
 
-/* connector bar (40px wide = our gutter) */
 .milestone::before {
   content: "";
   position: absolute;
@@ -367,19 +339,14 @@ main {
   background: #ccc;
 }
 
-/* connector for odd (left) items */
 .timeline .milestone:nth-child(odd)::before {
   right: -40px;
-  /* reaches into the center line */
 }
 
-/* connector for even (right) items */
 .timeline .milestone:nth-child(even)::before {
   left: -40px;
-  /* reaches into the center line */
 }
 
-/* image styling */
 .milestone img {
   width: 300px;
   height: auto;
@@ -389,7 +356,6 @@ main {
   flex-shrink: 0;
 }
 
-/* text container */
 .milestone-text {
   flex: 1;
 }
@@ -406,26 +372,41 @@ main {
   transform: translateY(0);
 }
 
-/* mobile: full-width under the line */
+/* mobile: single-column, no center line or connectors (prevents overflow) */
 @media (max-width: 768px) {
   .timeline {
     padding: 0 1em;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .timeline::before {
-    left: 1em;
+    display: none;
+    /* hide center line on phones */
   }
 
   .milestone {
     width: 100% !important;
-    margin: 1.5em 0;
+    margin: 1.25em 0;
     justify-content: flex-start !important;
     text-align: left !important;
-    padding-left: 3em;
+    padding-left: 1rem;
+    /* smaller, safe padding */
+    padding-right: 1rem;
+    flex-direction: row;
+    /* reset any reverse */
   }
 
   .milestone::before {
     display: none;
+    /* hide connectors */
+  }
+
+  .milestone img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
   }
 }
 
@@ -435,9 +416,9 @@ main {
 .project-gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  /* exactly 2 per row */
   gap: 2rem;
   margin-top: 2rem;
+  max-width: 100%;
 }
 
 .project-item {
@@ -448,6 +429,8 @@ main {
   transition: transform 0.2s ease;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  /* prevent children from causing horizontal scroll */
 }
 
 .project-item:hover {
@@ -456,17 +439,37 @@ main {
 
 /* Larger image area inside the card */
 .project-item .carousel-track-container {
-  height: 420px;
-  /* bump this up/down to taste */
+  /* Let height scale with width using an intrinsic frame */
+  aspect-ratio: auto;
+  /* tweak to 4/3 or 3/2 if you prefer */
+  height: auto;
+  /* replaces fixed pixel height */
   border-radius: 8px;
   overflow: hidden;
+  background: #111;
+  /* subtle letterbox background */
+}
+
+.project-item .carousel-track {
+  will-change: transform;
+}
+
+.project-item .carousel-slide {
+  min-width: 100%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .project-item .carousel-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
+  object-fit: contain;
+  /* was: cover */
+  border-radius: 0;
+  /* let the container handle rounding */
+  object-position: center;
 }
 
 /* Typography & spacing in cards */
@@ -488,47 +491,31 @@ main {
 @media (max-width: 900px) {
   .project-gallery {
     grid-template-columns: 1fr;
-  }
-
-  .project-item .carousel-track-container {
-    height: 300px;
+    overflow-x: hidden;
+    /* safety against grid overflow */
   }
 }
-
 
 /* ---------------------------------------------
    Projects Gallery: Full-width “View More” button
 --------------------------------------------- */
 .project-item .more-info {
   display: block;
-  /* make it a block so width works */
   width: 100%;
-  /* span the full width of its container */
   padding: 0.75em 1em;
-  /* comfy click/tap area */
   margin-top: 1em;
-  /* gap above the button */
   background-color: #1f1f1f;
-  /* match your theme */
   color: #fff;
-  /* button text color */
   border: none;
-  /* remove default border */
   border-radius: 4px;
-  /* soften the corners */
   text-align: center;
-  /* center the label */
   cursor: pointer;
-  /* pointer on hover */
   box-sizing: border-box;
-  /* include padding in the width */
 }
 
 .project-item .more-info:hover {
   background-color: #333;
-  /* slightly lighter on hover */
 }
-
 
 /* ---------------------------------------------
    9. Form Styles
@@ -560,14 +547,10 @@ form textarea {
   border-radius: 4px;
 }
 
-/* Disable manual resize, but allow scrolling when content overflows */
 form textarea {
   resize: none;
-  /* remove the drag handle */
   overflow-y: auto;
-  /* show vertical scrollbar as needed */
 }
-
 
 form button {
   background-color: #1f1f1f;
@@ -588,14 +571,11 @@ form button:hover {
 .file-upload input[type="file"] {
   display: block;
   margin-top: 0.5em;
-  /* make all the inline text invisible */
   color: transparent;
 }
 
-/* restore the button’s text color so “Browse” still shows */
 .file-upload input[type="file"]::file-selector-button {
   color: initial;
-  /* use browser’s default button text color */
 }
 
 .file-upload .file-list {
@@ -674,7 +654,7 @@ form button:hover {
   background: #ffffff;
   padding: 3em 1.5em;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   margin-bottom: 3em;
 }
 
@@ -698,7 +678,7 @@ form button:hover {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 1.25rem 1.25rem 1.4rem;
   transition: transform 180ms ease, box-shadow 180ms ease;
   width: 100%;
@@ -710,7 +690,7 @@ form button:hover {
 .value-card:hover,
 .value-card.active {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Icon + title row centered */
@@ -769,14 +749,283 @@ form button:hover {
 
 /* Keyboard focus ring */
 .value-card:focus-visible {
-  box-shadow: 0 0 0 3px rgba(31,31,31,0.3);
+  box-shadow: 0 0 0 3px rgba(31, 31, 31, 0.3);
 }
 
 /* Responsive tweaks */
 @media (max-width: 900px) {
-  .values-grid { gap: 1.25rem; }
-  .value-card { max-width: 280px; }
+  .values-grid {
+    gap: 1.25rem;
+  }
+
+  .value-card {
+    max-width: 280px;
+  }
 }
+
 @media (max-width: 600px) {
-  .value-card { max-width: 100%; }
+  .value-card {
+    max-width: 100%;
+  }
+}
+
+/* ---------------------------------------------
+   Global Responsive Enhancements
+--------------------------------------------- */
+
+/* Large tablets */
+@media (max-width: 1200px) {
+  main {
+    padding: 1.5em;
+  }
+
+  .services-carousel .carousel-track-container {
+    height: 520px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .logo a {
+    font-size: 1.35em;
+  }
+
+  nav ul {
+    gap: 1em;
+  }
+
+  .hero {
+    padding: 4em 1.5em;
+  }
+
+  .hero h1 {
+    font-size: 2.2em;
+  }
+
+  .hero p {
+    font-size: 1.1em;
+  }
+
+  .services h2 {
+    font-size: 2.2em;
+  }
+
+  .services-carousel .carousel-track-container {
+    height: 440px;
+  }
+
+  .service p {
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+  }
+}
+
+/* Mobile landscape & small tablets */
+@media (max-width: 768px) {
+
+  /* Prevent any accidental sideways scroll on small devices */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  header,
+  footer {
+    padding: 0.85em 1.2em;
+  }
+
+  .header-left {
+    gap: 0.75em;
+  }
+
+  .logo-img img {
+    height: 64px;
+  }
+
+  .logo a {
+    font-size: 1.25em;
+  }
+
+  nav ul {
+    gap: 0.75em;
+    font-size: 0.95em;
+  }
+
+  main {
+    padding: 1.25em;
+  }
+
+  .hero {
+    padding: 3.25em 1.25em;
+    border-radius: 6px;
+  }
+
+  .hero h1 {
+    font-size: 1.9em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    /* stack service cards */
+    gap: 1.25em;
+  }
+
+  .service h3 {
+    font-size: 1.4em;
+  }
+
+  .service img {
+    height: 160px;
+  }
+
+  .services-carousel .carousel-track-container {
+    height: 360px;
+  }
+
+  .carousel .carousel-btn,
+  .services-carousel .carousel-btn {
+    font-size: 1.6em;
+    padding: 0.15em 0.5em;
+  }
+
+  .carousel .carousel-btn:focus-visible,
+  .services-carousel .carousel-btn:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+  }
+
+  .mission-vision {
+    padding: 2em 1.25em;
+  }
+
+  .mission-vision h2 {
+    font-size: 1.7em;
+  }
+
+  .mission-vision p {
+    font-size: 1em;
+    line-height: 1.7;
+  }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+  .logo-img img {
+    height: 56px;
+  }
+
+  nav ul {
+    gap: 0.6em;
+    font-size: 0.9em;
+  }
+
+  .hero {
+    padding: 2.5em 1em;
+  }
+
+  .hero h1 {
+    font-size: 1.6em;
+  }
+
+  .hero p {
+    font-size: 0.95em;
+  }
+
+  .service img {
+    height: 150px;
+  }
+
+  .services-carousel .carousel-track-container {
+    height: 260px;
+  }
+
+  .project-gallery {
+    grid-template-columns: 1fr;
+    /* single column on phones */
+    gap: 1.25rem;
+  }
+
+  .project-item {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .project-item h2 {
+    font-size: 1.25rem;
+  }
+
+  .project-item p {
+    font-size: 0.98rem;
+  }
+
+  .mission-vision h2,
+  .core-values h2,
+  .services h2 {
+    font-size: 1.6em;
+  }
+
+  .values-grid {
+    gap: 1rem;
+  }
+
+  .value-card {
+    padding: 1rem 1rem 1.1rem;
+    max-width: 100%;
+  }
+
+  .value-title {
+    font-size: 1rem;
+  }
+
+  .value-body {
+    font-size: 0.93rem;
+  }
+}
+
+/* --- Fix Past Projects image sizing: keep intrinsic aspect ratio on mobile --- */
+/* Remove any fixed-height overrides you previously added for .project-item .carousel-track-container */
+@media (max-width: 900px) {
+  .project-item .carousel-track-container {
+    aspect-ratio: auto;
+    /* taller frame on tablets/phones */
+    height: auto;
+    /* ensure no fixed height sneaks back in */
+  }
+}
+
+@media (max-width: 480px) {
+  .project-item .carousel-track-container {
+    aspect-ratio: auto;
+    /* square-ish on small phones for readability */
+    height: auto;
+  }
+}
+
+/* --- Mobile hit area for carousel buttons --- */
+@media (max-width: 768px) {
+
+  .carousel .carousel-btn,
+  .services-carousel .carousel-btn {
+    min-width: 44px;
+    min-height: 44px;
+    /* meets common touch target guidance */
+  }
+}
+
+/* --- Respect reduced motion preferences (optional, nice-to-have) --- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto;
+  }
+
+  .carousel-track,
+  .fade-in,
+  .project-item,
+  .value-card {
+    transition: none !important;
+  }
 }
