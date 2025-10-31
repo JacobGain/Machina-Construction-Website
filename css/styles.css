@@ -434,7 +434,8 @@ main {
 --------------------------------------------- */
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* exactly 2 per row */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* exactly 2 per row */
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -455,7 +456,8 @@ main {
 
 /* Larger image area inside the card */
 .project-item .carousel-track-container {
-  height: 420px;             /* bump this up/down to taste */
+  height: 420px;
+  /* bump this up/down to taste */
   border-radius: 8px;
   overflow: hidden;
 }
@@ -487,6 +489,7 @@ main {
   .project-gallery {
     grid-template-columns: 1fr;
   }
+
   .project-item .carousel-track-container {
     height: 300px;
   }
@@ -636,4 +639,144 @@ form button:hover {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ---------------------------------------------
+   Mission & Vision Section
+--------------------------------------------- */
+.mission-vision {
+  background: #ffffff;
+  padding: 3em 2em;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+.mission-vision h2 {
+  font-size: 2.2em;
+  margin-bottom: 0.75em;
+  color: #1f1f1f;
+}
+
+.mission-vision p {
+  font-size: 1.1em;
+  line-height: 1.8;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #444;
+}
+
+/* ---------------------------------------------
+   Core Values — refined sizing and alignment
+--------------------------------------------- */
+.core-values {
+  background: #ffffff;
+  padding: 3em 1.5em;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 3em;
+}
+
+.core-values h2 {
+  font-size: 2.2em;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f1f1f;
+}
+
+.values-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.value-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1.25rem 1.25rem 1.4rem;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.value-card:hover,
+.value-card.active {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Icon + title row centered */
+.value-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.value-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f3f3f3;
+  display: grid;
+  place-items: center;
+}
+
+.value-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #1f1f1f;
+  opacity: 0.85;
+}
+
+.value-title {
+  font-weight: 700;
+  color: #1f1f1f;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Reveal-on-hover/click body */
+.value-body {
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  overflow: hidden;
+  transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
+  padding: 0 0.5rem;
+}
+
+.value-card:hover .value-body,
+.value-card.active .value-body,
+.value-card:focus-visible .value-body {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Keyboard focus ring */
+.value-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(31,31,31,0.3);
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .values-grid { gap: 1.25rem; }
+  .value-card { max-width: 280px; }
+}
+@media (max-width: 600px) {
+  .value-card { max-width: 100%; }
 }
