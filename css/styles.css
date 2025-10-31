@@ -1,6 +1,39 @@
 /* styles.css */
 
 /* ---------------------------------------------
+   0. Theme Variables (logo-inspired accents)
+--------------------------------------------- */
+:root {
+  --bg-0: #f6f7f9;
+  --bg-1: #ffffff;
+
+  /* Logo accents (tuned to avoid ketchup/mustard look) */
+  --accent-red: #c62828;
+  /* primary accent */
+  --accent-red-600: #b71c1c;
+  --accent-red-200: #ef9a9a;
+
+  --accent-yellow: #f6b704;
+  /* secondary accent highlight */
+  --accent-yellow-700: #d39a00;
+  --accent-yellow-200: #ffe082;
+
+  --ink-900: #1f1f1f;
+  --ink-700: #333;
+  --ink-500: #555;
+
+  --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+  --ring-focus: 0 0 0 3px rgba(198, 40, 40, 0.35);
+
+  /* Subtle site-wide background gradient */
+  --page-gradient: radial-gradient(1200px 800px at 10% 0%,
+      rgba(246, 183, 4, 0.08), transparent 60%),
+    radial-gradient(900px 600px at 90% 10%,
+      rgba(198, 40, 40, 0.06), transparent 55%),
+    linear-gradient(180deg, #fafafa, #f3f4f6 60%, #f7f7f9);
+}
+
+/* ---------------------------------------------
    1. Reset and Base Styles
 --------------------------------------------- */
 * {
@@ -18,8 +51,8 @@ html {
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
+  background: var(--page-gradient);
+  color: var(--ink-700);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -37,10 +70,25 @@ h2,
 h3 {
   margin-bottom: 0.5em;
   font-weight: 600;
+  color: var(--ink-900);
 }
 
 p {
   margin-bottom: 1em;
+  color: var(--ink-700);
+}
+
+/* accent underline for section headings */
+.section-title,
+.services h2,
+.core-values h2,
+.mission-vision h2 {
+  display: inline-block;
+  background-image: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 3px;
+  padding-bottom: 0.15em;
 }
 
 /* ---------------------------------------------
@@ -59,10 +107,8 @@ header {
   align-items: center;
   gap: 1em;
   flex-wrap: wrap;
-  /* allow wrapping on smaller screens */
 }
 
-/* Logo + Title */
 .header-left {
   display: flex;
   align-items: center;
@@ -92,7 +138,6 @@ nav ul {
   gap: 1.5em;
   align-items: center;
   flex-wrap: wrap;
-  /* wrap links to next line if needed */
   padding-top: 0.25rem;
 }
 
@@ -100,23 +145,66 @@ nav a {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  position: relative;
 }
 
-nav a:hover {
-  text-decoration: underline;
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
 }
 
-footer p {
-  margin: 0.5em 0;
+nav a:hover::after,
+nav a:focus-visible::after {
+  transform: scaleX(1);
 }
 
-footer a {
+/* Footer text & links forced white on dark bg */
+footer p,
+footer a,
+footer a:visited {
   color: #fff;
-  text-decoration: none;
 }
 
 footer a:hover {
   text-decoration: underline;
+}
+
+/* Footer badge positioning */
+footer {
+  position: relative;
+}
+
+/* needed for absolute positioning of the badge */
+
+footer>img {
+  position: absolute;
+  right: 2rem;
+  bottom: 1rem;
+  height: 120px;
+  width: auto;
+  display: block;
+  opacity: 0.98;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+  /* purely decorative */
+}
+
+/* On small screens, let it stack below and right-align */
+@media (max-width: 600px) {
+  footer>img {
+    position: static;
+    margin: 0.75rem 0 0 auto;
+    display: block;
+    height: 40px;
+  }
 }
 
 /* ---------------------------------------------
@@ -128,66 +216,144 @@ main {
   margin: 0 auto;
 }
 
-/* ---------------------------------------------
-   5. Hero Section
---------------------------------------------- */
-.hero {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    url('../images/home-page/hero.jpg') center/contain no-repeat;
-  background-color: #000;
+/* Section wrapper rhythm + subtle separators to improve flow */
+section {
+  margin-bottom: 3rem;
+  background: var(--bg-1);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  position: relative;
+}
 
+section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-yellow), var(--accent-red));
+  opacity: 0.12;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Remove card chrome from hero (hero has its own chrome) */
+section.hero {
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Responsive tuning: keep “~top quarter” feeling without cramping */
+@media (max-width: 992px) {
+  .hero {
+    padding-top: 22vh;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 18vh;
+    min-height: 420px;
+  }
+}
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 16vh;
+    min-height: 360px;
+  }
+  .hero h1 { font-size: 1.9rem; }
+  .hero p  { font-size: 1.02rem; }
+}
+
+/* ---------------------------------------------
+   5. HERO — gradient border, white text, top-quarter text
+   (index.html sets the hero background inline; we do NOT override it.)
+--------------------------------------------- */
+section.hero {
+  padding: 0;                 /* hero manages its own spacing */
+  box-shadow: none;
+  background: transparent;
+}
+
+.hero {
+  position: relative;
   color: #fff;
   text-align: center;
 
-  display: grid;
-  justify-items: center; /* horizontally center text */
-  align-content: start;  /* move text group upward */
+  /* Use flex for reliable vertical placement of the text block */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
-  /* roughly one-quarter down from the top */
-  padding-top: 20vh;
-  padding-bottom: 2em;
+  /* Size & vertical offset of text (~top quarter) */
+  min-height: clamp(520px, 72vh, 880px);
+  padding-top: 24vh;          /* ⟵ moves both lines down */
+  padding-bottom: 2.25rem;
 
-  gap: 0.25rem;
+  /* The image is supplied inline on the element; enforce cover/no bars: */
+  background-position: 50% 35% !important; /* favor upper composition */
+  background-size: cover !important;       /* fills box; no bars */
+  background-repeat: no-repeat !important;
 
-  --hero-min: clamp(420px, 65vh, 780px);
-  min-height: var(--hero-min);
-
-  border-radius: 8px;
-  margin-bottom: 2em;
-
+  border-radius: 14px;        /* rounds both image and gradient outline */
+  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
   text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
 
+/* Gradient OUTLINE (rounded) — no line across the photo */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* outline thickness */
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+
+  /* Punch-out center so only the rim shows */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  pointer-events: none;
+  z-index: 0; /* lives under the text but above the page bg */
+}
+
+/* Ensure hero content sits above the outline layer */
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Headline & subline */
 .hero h1 {
-  font-size: clamp(2rem, 3.5vw + 1rem, 3.25rem);
-  margin-bottom: 0.15em;
+  color: #fff;
+  font-size: clamp(2.2rem, 3.5vw + 1rem, 3.4rem);
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.3px;
 }
 
 .hero p {
-  font-size: clamp(1rem, 1.25vw + 0.8rem, 1.3rem);
+  color: #fff;
+  font-size: clamp(1.05rem, 1.25vw + 0.8rem, 1.35rem);
   line-height: 1.3;
-  margin-top: 0;
-}
-
-/* optional: tighter top spacing on smaller screens */
-@media (max-width: 600px) {
-  .hero {
-    padding-top: 12vh;
-    --hero-min: 340px;
-    gap: 0.15rem;
-  }
+  max-width: 960px;
+  padding: 0 1rem;
 }
 
 /* ---------------------------------------------
-   6. Services Section (Grid and Carousel)
+   6. Services (HOME) – Cards & Carousel
 --------------------------------------------- */
 .services {
-  padding: 2em 0;
+  padding: 2em 1.5em;
+  background: linear-gradient(180deg, rgba(246, 183, 4, 0.06), transparent 55%), var(--bg-1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .services h2 {
-  font-size: 2.5em;
+  font-size: 2.2em;
   margin-bottom: 0.75em;
   text-align: center;
 }
@@ -202,48 +368,60 @@ main {
 .service {
   background: white;
   padding: 1.5em;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: box-shadow 160ms ease, transform 160ms ease;
 }
 
-.service img {
+.service:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.service::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 12px;
+  border: 2px solid transparent;
+}
+
+.service:focus-within {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14), var(--ring-focus);
+}
+
+/* HOME carousel cards’ images (inside slides) — preserve likeness */
+.services .service img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 4px;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  background: #000;
+  border-radius: 6px;
   margin-bottom: 1em;
 }
 
 .service h3 {
-  font-size: 2em;
+  font-size: 1.6em;
   text-align: center;
+  color: var(--ink-900);
 }
 
 .service p {
   font-size: 1rem;
-  line-height: 1.5;
-  margin-top: 1em;
-  margin-left: 3em;
-  margin-right: 3em;
+  line-height: 1.55;
+  margin-top: 0.9em;
+  margin-left: 1.25em;
+  margin-right: 1.25em;
 }
 
-/* Carousel overrides */
-.services-carousel {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
+/* ---- Carousel: BASE (shared minimal rules that do NOT force heights) ---- */
 .carousel {
   position: relative;
-}
-
-.carousel-track-container {
-  height: 600px;
-  /* desktop default */
-  overflow: hidden;
 }
 
 .carousel-track {
@@ -258,37 +436,58 @@ main {
   align-items: stretch;
 }
 
+/* ---- Carousel: HOME-SCOPED overrides ---- */
+.services-carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.services .carousel-track-container {
+  height: auto !important;
+  /* prevent text creeping & black bar on home */
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: transparent;
+}
+
+/* Carousel buttons (shared) */
 .carousel .carousel-btn,
 .services-carousel .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(31, 31, 31, 0.4);
-  border: none;
+  background: rgba(31, 31, 31, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff;
   font-size: 2em;
   padding: 0.2em 0.6em;
   cursor: pointer;
   z-index: 10;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  transition: background 160ms ease, transform 160ms ease;
 }
 
 .carousel .carousel-btn.prev,
 .services-carousel .carousel-btn.prev {
-  left: 0.2em;
+  left: 0.35em;
 }
 
 .carousel .carousel-btn.next,
 .services-carousel .carousel-btn.next {
-  right: 0.2em;
+  right: 0.35em;
 }
 
 .carousel .carousel-btn:hover,
 .services-carousel .carousel-btn:hover {
-  background: rgba(31, 31, 31, 0.9);
+  background: rgba(31, 31, 31, 0.85);
+  transform: translateY(-50%) scale(1.04);
 }
 
 /* ---------------------------------------------
-   7. Vertical Timeline (Flex-based, alternating flush)
+   7. Vertical Timeline (Company History page)
 --------------------------------------------- */
 .timeline {
   position: relative;
@@ -303,8 +502,9 @@ main {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: #ccc;
+  background: linear-gradient(180deg, var(--accent-yellow), var(--accent-red));
   transform: translateX(-50%);
+  opacity: 0.28;
 }
 
 .milestone {
@@ -314,6 +514,9 @@ main {
   width: calc(50% - 40px);
   padding: 1em;
   box-sizing: border-box;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
 }
 
 .timeline .milestone:nth-child(odd) {
@@ -336,7 +539,8 @@ main {
   transform: translateY(-50%);
   width: 40px;
   height: 4px;
-  background: #ccc;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  opacity: 0.6;
 }
 
 .timeline .milestone:nth-child(odd)::before {
@@ -351,7 +555,7 @@ main {
   width: 300px;
   height: auto;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
   margin: 0 1em;
   flex-shrink: 0;
 }
@@ -372,7 +576,7 @@ main {
   transform: translateY(0);
 }
 
-/* mobile: single-column, no center line or connectors (prevents overflow) */
+/* mobile timeline */
 @media (max-width: 768px) {
   .timeline {
     padding: 0 1em;
@@ -382,7 +586,6 @@ main {
 
   .timeline::before {
     display: none;
-    /* hide center line on phones */
   }
 
   .milestone {
@@ -391,15 +594,12 @@ main {
     justify-content: flex-start !important;
     text-align: left !important;
     padding-left: 1rem;
-    /* smaller, safe padding */
     padding-right: 1rem;
     flex-direction: row;
-    /* reset any reverse */
   }
 
   .milestone::before {
     display: none;
-    /* hide connectors */
   }
 
   .milestone img {
@@ -411,7 +611,8 @@ main {
 }
 
 /* ---------------------------------------------
-   8. Projects Gallery
+   8. Projects Gallery (Past Projects page)
+   (SCOPED carousel — natural image sizing, letterboxed + GRADIENT BUTTON & BORDER)
 --------------------------------------------- */
 .project-gallery {
   display: grid;
@@ -419,39 +620,53 @@ main {
   gap: 2rem;
   margin-top: 2rem;
   max-width: 100%;
+  background:
+    linear-gradient(180deg, rgba(246,183,4,0.04), rgba(198,40,40,0.03)),
+    #ffffff;
 }
 
 .project-item {
   background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  transition: transform 0.2s ease;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* prevent children from causing horizontal scroll */
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .project-item:hover {
   transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
 }
 
-/* Larger image area inside the card */
+/* Vars for max image height per breakpoint */
+:root {
+  --pp-img-max-h-desktop: 340px;
+  --pp-img-max-h-tablet: 260px;
+  --pp-img-max-h-phone: 220px;
+}
+
+/* Carousel container: auto height + letterbox bg + GRADIENT OUTLINE */
 .project-item .carousel-track-container {
-  /* Let height scale with width using an intrinsic frame */
-  aspect-ratio: auto;
-  /* tweak to 4/3 or 3/2 if you prefer */
+  position: relative;
   height: auto;
-  /* replaces fixed pixel height */
-  border-radius: 8px;
+  /* let content decide height */
   overflow: hidden;
-  background: #111;
-  /* subtle letterbox background */
+  border-radius: 10px;
+  background: #000;
+  /* letterbox for landscape images */
+  border: 1px solid rgba(0, 0, 0, 0.6);
 }
 
+/* Track & slides (scoped) */
 .project-item .carousel-track {
-  will-change: transform;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  align-items: center;
+  /* vertical center */
 }
 
 .project-item .carousel-slide {
@@ -460,62 +675,91 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* horizontal center */
 }
 
+/* Images: natural proportions, never cropped; letterboxed by black bg */
 .project-item .carousel-slide img {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: auto;
+  /* don't force stretch */
+  height: auto;
+  /* keep intrinsic ratio */
+  max-width: 100%;
+  /* fit narrow cards */
+  max-height: var(--pp-img-max-h-desktop);
   object-fit: contain;
-  /* was: cover */
-  border-radius: 0;
-  /* let the container handle rounding */
+  /* safeguard */
   object-position: center;
+  border-radius: 0;
 }
 
 /* Typography & spacing in cards */
 .project-item h2 {
   font-size: 1.5rem;
   margin-top: 0.9rem;
+  color: var(--ink-900);
 }
 
 .project-item p {
   font-size: 1.05rem;
   line-height: 1.6;
-}
-
-.project-item .more-info {
-  font-weight: 600;
-}
-
-/* Responsive: 1-per-row on smaller screens + shorter image height */
-@media (max-width: 900px) {
-  .project-gallery {
-    grid-template-columns: 1fr;
-    overflow-x: hidden;
-    /* safety against grid overflow */
-  }
+  color: var(--ink-700);
 }
 
 /* ---------------------------------------------
-   Projects Gallery: Full-width “View More” button
+   View More / Show Less button (GRADIENT restored)
 --------------------------------------------- */
 .project-item .more-info {
   display: block;
   width: 100%;
   padding: 0.75em 1em;
   margin-top: 1em;
-  background-color: #1f1f1f;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   text-align: center;
   cursor: pointer;
   box-sizing: border-box;
+  font-weight: 600;
+  transition: filter 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+}
+
+/* When toggled open (e.g., aria-expanded="true"), keep gradient and add subtle lift */
+.project-item .more-info[aria-expanded="true"] {
+  filter: brightness(0.97);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
 }
 
 .project-item .more-info:hover {
-  background-color: #333;
+  filter: brightness(0.95);
+  transform: translateY(-1px);
 }
+
+.project-item .more-info:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(246, 183, 4, 0.25);
+}
+
+/* Responsive: 1-per-row on smaller screens + tuned image heights */
+@media (max-width: 900px) {
+  .project-gallery {
+    grid-template-columns: 1fr;
+    overflow-x: hidden;
+  }
+
+  .project-item .carousel-slide img {
+    max-height: var(--pp-img-max-h-tablet);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-item .carousel-slide img {
+    max-height: var(--pp-img-max-h-phone);
+  }
+}
+
 
 /* ---------------------------------------------
    9. Form Styles
@@ -525,8 +769,9 @@ form {
   margin: auto;
   background: white;
   padding: 2em;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 form div {
@@ -536,7 +781,8 @@ form div {
 form label {
   display: block;
   margin-bottom: 0.5em;
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--ink-900);
 }
 
 form input,
@@ -544,7 +790,7 @@ form textarea {
   width: 100%;
   padding: 0.75em;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 form textarea {
@@ -553,20 +799,23 @@ form textarea {
 }
 
 form button {
-  background-color: #1f1f1f;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
   color: white;
   padding: 0.75em 1.5em;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  transition: filter 140ms ease, transform 140ms ease;
 }
 
 form button:hover {
-  background-color: #333;
+  filter: brightness(0.95);
+  transform: translateY(-1px);
 }
 
 /* ---------------------------------------------
-   Contact form: file-list displayed under the input
+   10. Contact form file list
 --------------------------------------------- */
 .file-upload input[type="file"] {
   display: block;
@@ -587,10 +836,11 @@ form button:hover {
   align-items: center;
   background: #f0f0f0;
   color: #333;
-  border-radius: 4px;
-  padding: 0.3em 0.6em;
+  border-radius: 999px;
+  padding: 0.35em 0.7em;
   margin-right: 0.5em;
   font-size: 0.9em;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .file-upload .file-item .remove-file {
@@ -598,7 +848,7 @@ form button:hover {
   border: none;
   color: #666;
   font-size: 1em;
-  margin-left: 0.4em;
+  margin-left: 0.5em;
   cursor: pointer;
   line-height: 1;
 }
@@ -608,7 +858,7 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   10. Fade-In Animation
+   11. Fade-In Animation (unchanged)
 --------------------------------------------- */
 .fade-in {
   opacity: 0;
@@ -622,21 +872,22 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   Mission & Vision Section
+   Mission & Vision (with accent rim & soft bg)
 --------------------------------------------- */
 .mission-vision {
-  background: #ffffff;
+  background: linear-gradient(180deg, rgba(198, 40, 40, 0.05), rgba(246, 183, 4, 0.03)), #ffffff;
   padding: 3em 2em;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
   margin-bottom: 3em;
   text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .mission-vision h2 {
-  font-size: 2.2em;
+  font-size: 2.1em;
   margin-bottom: 0.75em;
-  color: #1f1f1f;
+  color: var(--ink-900);
 }
 
 .mission-vision p {
@@ -644,25 +895,26 @@ form button:hover {
   line-height: 1.8;
   max-width: 900px;
   margin: 0 auto;
-  color: #444;
+  color: var(--ink-700);
 }
 
 /* ---------------------------------------------
    Core Values — refined sizing and alignment
 --------------------------------------------- */
 .core-values {
-  background: #ffffff;
+  background: linear-gradient(180deg, rgba(246, 183, 4, 0.04), rgba(198, 40, 40, 0.03)), #ffffff;
   padding: 3em 1.5em;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
   margin-bottom: 3em;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .core-values h2 {
-  font-size: 2.2em;
+  font-size: 2.1em;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #1f1f1f;
+  color: var(--ink-900);
 }
 
 .values-grid {
@@ -675,12 +927,12 @@ form button:hover {
 }
 
 .value-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 1.25rem 1.25rem 1.4rem;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   width: 100%;
   max-width: 320px;
   text-align: center;
@@ -689,11 +941,17 @@ form button:hover {
 
 .value-card:hover,
 .value-card.active {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  border-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 0px;
+  background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 1px solid transparent;
 }
 
-/* Icon + title row centered */
 .value-head {
   display: flex;
   flex-direction: column;
@@ -703,24 +961,25 @@ form button:hover {
 }
 
 .value-icon {
-  width: 50px;
-  height: 50px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: #f3f3f3;
   display: grid;
   place-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .value-icon svg {
   width: 24px;
   height: 24px;
-  fill: #1f1f1f;
-  opacity: 0.85;
+  fill: var(--ink-900);
+  opacity: 0.9;
 }
 
 .value-title {
   font-weight: 700;
-  color: #1f1f1f;
+  color: var(--ink-900);
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -728,7 +987,7 @@ form button:hover {
 
 /* Reveal-on-hover/click body */
 .value-body {
-  color: #555;
+  color: var(--ink-700);
   line-height: 1.6;
   font-size: 0.95rem;
   max-height: 0;
@@ -749,7 +1008,7 @@ form button:hover {
 
 /* Keyboard focus ring */
 .value-card:focus-visible {
-  box-shadow: 0 0 0 3px rgba(31, 31, 31, 0.3);
+  box-shadow: var(--ring-focus);
 }
 
 /* Responsive tweaks */
@@ -770,7 +1029,7 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   Global Responsive Enhancements
+   12. Global Responsive Enhancements
 --------------------------------------------- */
 
 /* Large tablets */
@@ -779,9 +1038,7 @@ form button:hover {
     padding: 1.5em;
   }
 
-  .services-carousel .carousel-track-container {
-    height: 520px;
-  }
+  /* no global carousel height here to keep variants independent */
 }
 
 /* Tablets */
@@ -795,35 +1052,31 @@ form button:hover {
   }
 
   .hero {
-    padding: 4em 1.5em;
+    padding: 20vh 1.5em 2em;
   }
 
+  /* ~top quarter on tablets */
   .hero h1 {
-    font-size: 2.2em;
+    font-size: clamp(2rem, 3vw + 1rem, 3rem);
   }
 
   .hero p {
-    font-size: 1.1em;
+    font-size: clamp(1rem, 1vw + 0.8rem, 1.2rem);
   }
 
   .services h2 {
-    font-size: 2.2em;
-  }
-
-  .services-carousel .carousel-track-container {
-    height: 440px;
+    font-size: 2rem;
   }
 
   .service p {
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+    margin-left: 1.25em;
+    margin-right: 1.25em;
   }
 }
 
 /* Mobile landscape & small tablets */
 @media (max-width: 768px) {
 
-  /* Prevent any accidental sideways scroll on small devices */
   html,
   body {
     overflow-x: hidden;
@@ -856,40 +1109,32 @@ form button:hover {
   }
 
   .hero {
-    padding: 3.25em 1.25em;
-    border-radius: 6px;
-  }
-
-  .hero h1 {
-    font-size: 1.9em;
-  }
-
-  .hero p {
-    font-size: 1em;
+    border-radius: 10px;
+    padding-top: 14vh;
+    padding-bottom: 1.75em;
+    --hero-min: 420px;
   }
 
   .services-grid {
     grid-template-columns: 1fr;
-    /* stack service cards */
     gap: 1.25em;
   }
 
   .service h3 {
-    font-size: 1.4em;
+    font-size: 1.35em;
   }
 
-  .service img {
-    height: 160px;
-  }
-
-  .services-carousel .carousel-track-container {
-    height: 360px;
+  .services .service img {
+    max-height: 300px;
   }
 
   .carousel .carousel-btn,
   .services-carousel .carousel-btn {
     font-size: 1.6em;
     padding: 0.15em 0.5em;
+    min-width: 44px;
+    min-height: 44px;
+    /* touch target */
   }
 
   .carousel .carousel-btn:focus-visible,
@@ -924,28 +1169,24 @@ form button:hover {
   }
 
   .hero {
-    padding: 2.5em 1em;
+    padding: 12vh 1em 1.5em;
+    --hero-min: 360px;
   }
 
   .hero h1 {
-    font-size: 1.6em;
+    font-size: 1.8rem;
   }
 
   .hero p {
-    font-size: 0.95em;
+    font-size: 1rem;
   }
 
-  .service img {
-    height: 150px;
-  }
-
-  .services-carousel .carousel-track-container {
-    height: 260px;
+  .services .service img {
+    max-height: 240px;
   }
 
   .project-gallery {
     grid-template-columns: 1fr;
-    /* single column on phones */
     gap: 1.25rem;
   }
 
@@ -962,10 +1203,14 @@ form button:hover {
     font-size: 0.98rem;
   }
 
+  .project-item .carousel-track-container {
+    height: 220px;
+  }
+
   .mission-vision h2,
   .core-values h2,
   .services h2 {
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
 
   .values-grid {
@@ -986,37 +1231,7 @@ form button:hover {
   }
 }
 
-/* --- Fix Past Projects image sizing: keep intrinsic aspect ratio on mobile --- */
-/* Remove any fixed-height overrides you previously added for .project-item .carousel-track-container */
-@media (max-width: 900px) {
-  .project-item .carousel-track-container {
-    aspect-ratio: auto;
-    /* taller frame on tablets/phones */
-    height: auto;
-    /* ensure no fixed height sneaks back in */
-  }
-}
-
-@media (max-width: 480px) {
-  .project-item .carousel-track-container {
-    aspect-ratio: auto;
-    /* square-ish on small phones for readability */
-    height: auto;
-  }
-}
-
-/* --- Mobile hit area for carousel buttons --- */
-@media (max-width: 768px) {
-
-  .carousel .carousel-btn,
-  .services-carousel .carousel-btn {
-    min-width: 44px;
-    min-height: 44px;
-    /* meets common touch target guidance */
-  }
-}
-
-/* --- Respect reduced motion preferences (optional, nice-to-have) --- */
+/* --- Respect reduced motion preferences --- */
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto;
