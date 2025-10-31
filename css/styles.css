@@ -1,20 +1,18 @@
 /* styles.css */
 
 /* ---------------------------------------------
-   0. Theme Variables (logo-inspired accents)
+   0) Theme Variables (logo-inspired accents)
 --------------------------------------------- */
 :root {
   --bg-0: #f6f7f9;
   --bg-1: #ffffff;
 
-  /* Logo accents (tuned to avoid ketchup/mustard look) */
+  /* Logo accents */
   --accent-red: #c62828;
-  /* primary accent */
   --accent-red-600: #b71c1c;
   --accent-red-200: #ef9a9a;
 
   --accent-yellow: #f6b704;
-  /* secondary accent highlight */
   --accent-yellow-700: #d39a00;
   --accent-yellow-200: #ffe082;
 
@@ -26,15 +24,19 @@
   --ring-focus: 0 0 0 3px rgba(198, 40, 40, 0.35);
 
   /* Subtle site-wide background gradient */
-  --page-gradient: radial-gradient(1200px 800px at 10% 0%,
-      rgba(246, 183, 4, 0.08), transparent 60%),
-    radial-gradient(900px 600px at 90% 10%,
-      rgba(198, 40, 40, 0.06), transparent 55%),
+  --page-gradient:
+    radial-gradient(1200px 800px at 10% 0%, rgba(246, 183, 4, 0.08), transparent 60%),
+    radial-gradient(900px 600px at 90% 10%, rgba(198, 40, 40, 0.06), transparent 55%),
     linear-gradient(180deg, #fafafa, #f3f4f6 60%, #f7f7f9);
+
+  /* Past Projects image sizing */
+  --pp-img-max-h-desktop: 340px;
+  --pp-img-max-h-tablet: 260px;
+  --pp-img-max-h-phone: 220px;
 }
 
 /* ---------------------------------------------
-   1. Reset and Base Styles
+   1) Reset & Base
 --------------------------------------------- */
 * {
   box-sizing: border-box;
@@ -63,7 +65,7 @@ img {
 }
 
 /* ---------------------------------------------
-   2. Typography
+   2) Typography
 --------------------------------------------- */
 h1,
 h2,
@@ -92,7 +94,7 @@ p {
 }
 
 /* ---------------------------------------------
-   3. Header & Footer
+   3) Header & Footer
 --------------------------------------------- */
 header,
 footer {
@@ -182,8 +184,6 @@ footer {
   position: relative;
 }
 
-/* needed for absolute positioning of the badge */
-
 footer>img {
   position: absolute;
   right: 2rem;
@@ -194,10 +194,10 @@ footer>img {
   opacity: 0.98;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
   pointer-events: none;
-  /* purely decorative */
+  /* decorative */
 }
 
-/* On small screens, let it stack below and right-align */
+/* On small screens, stack & right-align */
 @media (max-width: 600px) {
   footer>img {
     position: static;
@@ -208,7 +208,7 @@ footer>img {
 }
 
 /* ---------------------------------------------
-   4. Main Content Wrapper
+   4) Main Content Wrapper
 --------------------------------------------- */
 main {
   padding: 2em;
@@ -216,7 +216,7 @@ main {
   margin: 0 auto;
 }
 
-/* Section wrapper rhythm + subtle separators to improve flow */
+/* Section wrapper rhythm + subtle separators */
 section {
   margin-bottom: 3rem;
   background: var(--bg-1);
@@ -239,112 +239,91 @@ section::before {
   border-top-right-radius: 10px;
 }
 
-/* Remove card chrome from hero (hero has its own chrome) */
+/* ---------------------------------------------
+   5) HERO — gradient border, rounded, top-quarter text
+   (index.html sets the hero background inline; we do NOT override its URL)
+--------------------------------------------- */
 section.hero {
   padding: 0;
   box-shadow: none;
   background: transparent;
 }
 
-/* Responsive tuning: keep “~top quarter” feeling without cramping */
-@media (max-width: 992px) {
-  .hero {
-    padding-top: 22vh;
-  }
-}
-@media (max-width: 768px) {
-  .hero {
-    padding-top: 18vh;
-    min-height: 420px;
-  }
-}
-@media (max-width: 480px) {
-  .hero {
-    padding-top: 16vh;
-    min-height: 360px;
-  }
-  .hero h1 { font-size: 1.9rem; }
-  .hero p  { font-size: 1.02rem; }
-}
-
-/* ---------------------------------------------
-   5. HERO — gradient border, white text, top-quarter text
-   (index.html sets the hero background inline; we do NOT override it.)
---------------------------------------------- */
-section.hero {
-  padding: 0;                 /* hero manages its own spacing */
-  box-shadow: none;
-  background: transparent;
-}
-
 .hero {
   position: relative;
-  color: #fff;
-  text-align: center;
+  overflow: hidden;
+  height: clamp(380px, 56vh, 640px);
+  border-radius: 14px;
 
-  /* Use flex for reliable vertical placement of the text block */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  /* Stronger gradient border that fully wraps */
+  border: 4px solid transparent;
+  background:
+    linear-gradient(#0000, #0000) padding-box,
+    linear-gradient(90deg, var(--accent-red), var(--accent-yellow)) border-box;
 
-  /* Size & vertical offset of text (~top quarter) */
-  min-height: clamp(520px, 72vh, 880px);
-  padding-top: 24vh;          /* ⟵ moves both lines down */
-  padding-bottom: 2.25rem;
-
-  /* The image is supplied inline on the element; enforce cover/no bars: */
-  background-position: 50% 35% !important; /* favor upper composition */
-  background-size: cover !important;       /* fills box; no bars */
-  background-repeat: no-repeat !important;
-
-  border-radius: 14px;        /* rounds both image and gradient outline */
-  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Gradient OUTLINE (rounded) — no line across the photo */
-.hero::before {
+/* Full-cover image, no vertical bars */
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: brightness(0.8);
+  /* darken image slightly for text contrast */
+}
+
+/* Subtle overlay to improve legibility */
+.hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  padding: 2px; /* outline thickness */
-  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
-
-  /* Punch-out center so only the rim shows */
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-
+  background: linear-gradient(rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.45));
   pointer-events: none;
-  z-index: 0; /* lives under the text but above the page bg */
 }
 
-/* Ensure hero content sits above the outline layer */
-.hero > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Headline & subline */
-.hero h1 {
+/* Text: white, slightly above center */
+.hero-content {
+  position: absolute;
+  left: 50%;
+  top: 24%;
+  transform: translateX(-50%);
+  width: min(92%, 1100px);
+  text-align: center;
   color: #fff;
-  font-size: clamp(2.2rem, 3.5vw + 1rem, 3.4rem);
-  margin-bottom: 0.2rem;
-  letter-spacing: 0.3px;
+  /* white text */
+  z-index: 2;
 }
 
-.hero p {
+.hero-content h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: clamp(2rem, 3.5vw + 1rem, 3.4rem);
   color: #fff;
-  font-size: clamp(1.05rem, 1.25vw + 0.8rem, 1.35rem);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: clamp(1.02rem, 1.25vw + 0.8rem, 1.35rem);
   line-height: 1.3;
-  max-width: 960px;
-  padding: 0 1rem;
+  color: #fff;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.hero-content p b {
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
 }
 
 /* ---------------------------------------------
-   6. Services (HOME) – Cards & Carousel
+   6) Services (HOME) – Cards & Carousel
 --------------------------------------------- */
 .services {
   padding: 2em 1.5em;
@@ -381,20 +360,11 @@ section.hero {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
-.service::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: 12px;
-  border: 2px solid transparent;
-}
-
 .service:focus-within {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14), var(--ring-focus);
 }
 
-/* HOME carousel cards’ images (inside slides) — preserve likeness */
+/* HOME carousel cards’ images — preserve likeness with letterbox */
 .services .service img {
   width: 100%;
   height: auto;
@@ -419,7 +389,7 @@ section.hero {
   margin-right: 1.25em;
 }
 
-/* ---- Carousel: BASE (shared minimal rules that do NOT force heights) ---- */
+/* ---- Carousel: BASE (shared minimal rules) ---- */
 .carousel {
   position: relative;
 }
@@ -445,7 +415,7 @@ section.hero {
 
 .services .carousel-track-container {
   height: auto !important;
-  /* prevent text creeping & black bar on home */
+  /* prevent text creeping on home */
   overflow: hidden;
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -487,7 +457,7 @@ section.hero {
 }
 
 /* ---------------------------------------------
-   7. Vertical Timeline (Company History page)
+   7) Vertical Timeline (Company History)
 --------------------------------------------- */
 .timeline {
   position: relative;
@@ -564,55 +534,9 @@ section.hero {
   flex: 1;
 }
 
-/* fade-in (unchanged) */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* mobile timeline */
-@media (max-width: 768px) {
-  .timeline {
-    padding: 0 1em;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .timeline::before {
-    display: none;
-  }
-
-  .milestone {
-    width: 100% !important;
-    margin: 1.25em 0;
-    justify-content: flex-start !important;
-    text-align: left !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    flex-direction: row;
-  }
-
-  .milestone::before {
-    display: none;
-  }
-
-  .milestone img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    margin: 0.5rem 0;
-  }
-}
-
 /* ---------------------------------------------
-   8. Projects Gallery (Past Projects page)
-   (SCOPED carousel — natural image sizing, letterboxed + GRADIENT BUTTON & BORDER)
+   8) Projects Gallery (Past Projects)
+   Scoped carousel — natural sizing + letterbox + gradient buttons
 --------------------------------------------- */
 .project-gallery {
   display: grid;
@@ -621,7 +545,7 @@ section.hero {
   margin-top: 2rem;
   max-width: 100%;
   background:
-    linear-gradient(180deg, rgba(246,183,4,0.04), rgba(198,40,40,0.03)),
+    linear-gradient(180deg, rgba(246, 183, 4, 0.04), rgba(198, 40, 40, 0.03)),
     #ffffff;
 }
 
@@ -642,18 +566,10 @@ section.hero {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
 }
 
-/* Vars for max image height per breakpoint */
-:root {
-  --pp-img-max-h-desktop: 340px;
-  --pp-img-max-h-tablet: 260px;
-  --pp-img-max-h-phone: 220px;
-}
-
-/* Carousel container: auto height + letterbox bg + GRADIENT OUTLINE */
+/* Carousel container: auto height + letterbox bg */
 .project-item .carousel-track-container {
   position: relative;
   height: auto;
-  /* let content decide height */
   overflow: hidden;
   border-radius: 10px;
   background: #000;
@@ -666,7 +582,7 @@ section.hero {
   display: flex;
   transition: transform 0.5s ease-in-out;
   align-items: center;
-  /* vertical center */
+  /* vertical center images */
 }
 
 .project-item .carousel-slide {
@@ -682,7 +598,7 @@ section.hero {
 .project-item .carousel-slide img {
   display: block;
   width: auto;
-  /* don't force stretch */
+  /* no stretch */
   height: auto;
   /* keep intrinsic ratio */
   max-width: 100%;
@@ -694,7 +610,7 @@ section.hero {
   border-radius: 0;
 }
 
-/* Typography & spacing in cards */
+/* Card text */
 .project-item h2 {
   font-size: 1.5rem;
   margin-top: 0.9rem;
@@ -707,9 +623,7 @@ section.hero {
   color: var(--ink-700);
 }
 
-/* ---------------------------------------------
-   View More / Show Less button (GRADIENT restored)
---------------------------------------------- */
+/* View More / Show Less (gradient) */
 .project-item .more-info {
   display: block;
   width: 100%;
@@ -726,15 +640,14 @@ section.hero {
   transition: filter 140ms ease, transform 140ms ease, box-shadow 140ms ease;
 }
 
-/* When toggled open (e.g., aria-expanded="true"), keep gradient and add subtle lift */
-.project-item .more-info[aria-expanded="true"] {
-  filter: brightness(0.97);
-  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
-}
-
 .project-item .more-info:hover {
   filter: brightness(0.95);
   transform: translateY(-1px);
+}
+
+.project-item .more-info[aria-expanded="true"] {
+  filter: brightness(0.97);
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
 }
 
 .project-item .more-info:focus-visible {
@@ -742,27 +655,8 @@ section.hero {
   box-shadow: 0 0 0 3px rgba(246, 183, 4, 0.25);
 }
 
-/* Responsive: 1-per-row on smaller screens + tuned image heights */
-@media (max-width: 900px) {
-  .project-gallery {
-    grid-template-columns: 1fr;
-    overflow-x: hidden;
-  }
-
-  .project-item .carousel-slide img {
-    max-height: var(--pp-img-max-h-tablet);
-  }
-}
-
-@media (max-width: 480px) {
-  .project-item .carousel-slide img {
-    max-height: var(--pp-img-max-h-phone);
-  }
-}
-
-
 /* ---------------------------------------------
-   9. Form Styles
+   9) Forms
 --------------------------------------------- */
 form {
   max-width: 600px;
@@ -815,7 +709,7 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   10. Contact form file list
+   10) Contact: file list
 --------------------------------------------- */
 .file-upload input[type="file"] {
   display: block;
@@ -858,7 +752,7 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   11. Fade-In Animation (unchanged)
+   11) Fade-In (shared)
 --------------------------------------------- */
 .fade-in {
   opacity: 0;
@@ -872,10 +766,12 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   Mission & Vision (with accent rim & soft bg)
+   12) Mission & Vision
 --------------------------------------------- */
 .mission-vision {
-  background: linear-gradient(180deg, rgba(198, 40, 40, 0.05), rgba(246, 183, 4, 0.03)), #ffffff;
+  background:
+    linear-gradient(180deg, rgba(198, 40, 40, 0.05), rgba(246, 183, 4, 0.03)),
+    #ffffff;
   padding: 3em 2em;
   border-radius: 12px;
   box-shadow: var(--card-shadow);
@@ -899,10 +795,12 @@ form button:hover {
 }
 
 /* ---------------------------------------------
-   Core Values — refined sizing and alignment
+   13) Core Values
 --------------------------------------------- */
 .core-values {
-  background: linear-gradient(180deg, rgba(246, 183, 4, 0.04), rgba(198, 40, 40, 0.03)), #ffffff;
+  background:
+    linear-gradient(180deg, rgba(246, 183, 4, 0.04), rgba(198, 40, 40, 0.03)),
+    #ffffff;
   padding: 3em 1.5em;
   border-radius: 12px;
   box-shadow: var(--card-shadow);
@@ -946,7 +844,9 @@ form button:hover {
   border-color: transparent;
   outline: 2px solid transparent;
   outline-offset: 0px;
-  background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  background-image:
+    linear-gradient(#fff, #fff),
+    linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
   background-origin: border-box;
   background-clip: padding-box, border-box;
   border: 1px solid transparent;
@@ -1006,30 +906,12 @@ form button:hover {
   transform: translateY(0);
 }
 
-/* Keyboard focus ring */
 .value-card:focus-visible {
   box-shadow: var(--ring-focus);
 }
 
-/* Responsive tweaks */
-@media (max-width: 900px) {
-  .values-grid {
-    gap: 1.25rem;
-  }
-
-  .value-card {
-    max-width: 280px;
-  }
-}
-
-@media (max-width: 600px) {
-  .value-card {
-    max-width: 100%;
-  }
-}
-
 /* ---------------------------------------------
-   12. Global Responsive Enhancements
+   14) Responsive Enhancements
 --------------------------------------------- */
 
 /* Large tablets */
@@ -1037,8 +919,6 @@ form button:hover {
   main {
     padding: 1.5em;
   }
-
-  /* no global carousel height here to keep variants independent */
 }
 
 /* Tablets */
@@ -1052,16 +932,11 @@ form button:hover {
   }
 
   .hero {
-    padding: 20vh 1.5em 2em;
+    height: clamp(360px, 50vh, 560px);
   }
 
-  /* ~top quarter on tablets */
-  .hero h1 {
-    font-size: clamp(2rem, 3vw + 1rem, 3rem);
-  }
-
-  .hero p {
-    font-size: clamp(1rem, 1vw + 0.8rem, 1.2rem);
+  .hero-content {
+    top: 22%;
   }
 
   .services h2 {
@@ -1109,10 +984,11 @@ form button:hover {
   }
 
   .hero {
-    border-radius: 10px;
-    padding-top: 14vh;
-    padding-bottom: 1.75em;
-    --hero-min: 420px;
+    height: clamp(340px, 46vh, 520px);
+  }
+
+  .hero-content {
+    top: 20%;
   }
 
   .services-grid {
@@ -1155,6 +1031,11 @@ form button:hover {
     font-size: 1em;
     line-height: 1.7;
   }
+
+  /* Past Projects images */
+  .project-item .carousel-slide img {
+    max-height: var(--pp-img-max-h-tablet);
+  }
 }
 
 /* Mobile portrait */
@@ -1168,17 +1049,13 @@ form button:hover {
     font-size: 0.9em;
   }
 
+
   .hero {
-    padding: 12vh 1em 1.5em;
-    --hero-min: 360px;
+    height: clamp(320px, 42vh, 480px);
   }
 
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
+  .hero-content {
+    top: 18%;
   }
 
   .services .service img {
@@ -1203,8 +1080,9 @@ form button:hover {
     font-size: 0.98rem;
   }
 
-  .project-item .carousel-track-container {
-    height: 220px;
+  /* Let the container auto-size; images already constrained by var */
+  .project-item .carousel-slide img {
+    max-height: var(--pp-img-max-h-phone);
   }
 
   .mission-vision h2,
@@ -1231,7 +1109,7 @@ form button:hover {
   }
 }
 
-/* --- Respect reduced motion preferences --- */
+/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto;
@@ -1242,5 +1120,39 @@ form button:hover {
   .project-item,
   .value-card {
     transition: none !important;
+  }
+}
+
+/* Mobile timeline (at end so it wins) */
+@media (max-width: 768px) {
+  .timeline {
+    padding: 0 1em;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .milestone {
+    width: 100% !important;
+    margin: 1.25em 0;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-direction: row;
+  }
+
+  .milestone::before {
+    display: none;
+  }
+
+  .milestone img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
   }
 }
