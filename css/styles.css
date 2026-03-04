@@ -1183,7 +1183,7 @@ form button:hover {
   }
 }
 
-/* --- About Us page --- */
+/* --- About page --- */
 .about-section {
   background:
     linear-gradient(180deg, rgba(246,183,4,0.04), rgba(198,40,40,0.03)),
@@ -1488,4 +1488,79 @@ form button:hover {
 @media (prefers-reduced-motion: reduce) {
   .pillar, .download-card, .btn-gradient { transition: none !important }
   .policy > summary::after { transition: none !important }
+}
+
+.apply-button {
+  display: inline-block;
+  margin-top: 1.5em;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+  color: white;
+  padding: 0.75em 1.5em;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.apply-button:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.contact-form {
+  max-width: 860px;
+}
+
+.contact-form label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 100%;
+}
+@media (min-width: 600px) {
+  .half-width {
+    width: calc(50% - 0.5rem);
+  }
+}
+
+.thank-you-message {
+  margin-top: 1em;
+  background: #f0fdf4;
+  color: #155724;
+  padding: 1em;
+  border-left: 4px solid #28a745;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.file-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.4em;
 }

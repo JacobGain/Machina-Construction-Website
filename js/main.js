@@ -164,4 +164,49 @@ document.addEventListener('DOMContentLoaded', () => {
       e.target.value = '';
     });
   })();
+
+  (function () {
+    const btn = document.getElementById('mailto-submit');
+    const feedback = document.getElementById('form-feedback');
+
+    if (!btn) return;
+
+    const DEST_EMAIL = ''; // change later
+
+    btn.addEventListener('click', () => {
+      const type = document.getElementById('type')?.value;
+      const name = document.getElementById('name')?.value.trim();
+      const email = document.getElementById('email')?.value.trim();
+      const phone = document.getElementById('phone')?.value.trim();
+      const message = document.getElementById('message')?.value.trim();
+
+      if (!type || !name || !email || !message) {
+        alert('Please complete all required fields.');
+        return;
+      }
+
+      const subject = `${type} - ${name}`;
+
+      const body = `
+Full Name: ${name}
+Email: ${email}
+Phone: ${phone || '(not provided)'}
+
+Message:
+${message}
+    `.trim();
+
+      const mailto =
+        `mailto:${encodeURIComponent(DEST_EMAIL)}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailto;
+
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.innerHTML = `<p>Your email app should open now. Please attach any files manually, then press Send.</p>`;
+      }
+    });
+  })();
 });

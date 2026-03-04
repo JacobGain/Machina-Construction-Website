@@ -21,7 +21,7 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
+        <li><a href="about.html">about</a></li>
         <li><a href="past-projects.html">Past Projects</a></li>
         <li><a href="careers.html">Careers</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -30,32 +30,50 @@
   </header>
   <main id="main">
     <h1 class="page-title">Contact Us</h1>
-    <form action="#" method="post" enctype="multipart/form-data">
-      <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required />
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-      <div>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-      </div>
-      <div class="file-upload">
-        <label for="file">Attach Files (optional):</label>
-        <input type="file" id="file" name="file" multiple />
-        <div class="file-list"></div>
-      </div>
 
-      <!-- Honeypot field for spam prevention (hidden via CSS) -->
-      <div class="hp-field" aria-hidden="true" hidden="true">
-        <label for="website">Leave this field blank:</label>
-        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
-      </div>
-      <button type="submit">Send Message</button>
-    </form>
+    <p class="file-note">
+      * Attachments must be added manually in your email application before sending.
+    </p>
+
+    <div class="form-group full-width">
+      <label for="type">Message Type:</label>
+      <select id="type" name="type" required>
+        <option value="">Select one</option>
+        <option value="APPLICATION">Application</option>
+        <option value="INQUIRY">Inquiry</option>
+      </select>
+    </div>
+
+    <section class="mission-vision fade-in">
+      <form id="contact-form" enctype="multipart/form-data" class="contact-form">
+        <div class="form-group full-width">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" />
+          </div>
+
+          <div class="form-group half-width">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+        <div id="form-feedback" class="thank-you-message" hidden>
+          <p>Thanks for reaching out! Your message is being processed.</p>
+        </div>
+      </form>
+    </section>
   </main>
   <footer>
     <p><strong>Machina Construction Ltd.</strong></p>
