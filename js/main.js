@@ -165,13 +165,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
+  // ────────────────────────────────────────────
+  // 5) Hero image rotator (HOME only)
+  // ────────────────────────────────────────────
+  (function () {
+    // Prefer id target; fall back to the existing hero image selector
+    const heroImg =
+      document.getElementById('hero-rotator') ||
+      document.querySelector('.hero .hero-img');
+
+    if (!heroImg) return; // not on home page
+
+    // Put your hero images here (same size/style as current)
+    const heroImages = [
+      'images/home-page/hero.JPEG',
+      'images/home-page/photo-10.JPEG',
+      'images/home-page/photo-15.JPEG',
+      'images/home-page/photo-29.JPEG',
+      'images/home-page/photo-60.JPEG',
+      'images/home-page/photo-137.JPEG',
+      'images/home-page/photo-141.JPEG',
+      'images/home-page/photo-144.JPEG',
+    ];
+
+    // If you haven't added extra images yet, just do nothing
+    if (heroImages.length <= 1) return;
+
+    let i = 0;
+
+    // Optional: preload images so transitions feel instant
+    heroImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    const intervalMs = 5000; // 5s rotation, change if you want
+
+    setInterval(() => {
+      i = (i + 1) % heroImages.length;
+
+      // Keep the exact same element + styling; just swap the src
+      heroImg.src = heroImages[i];
+    }, intervalMs);
+  })();
+
   (function () {
     const btn = document.getElementById('mailto-submit');
     const feedback = document.getElementById('form-feedback');
 
     if (!btn) return;
 
-    const DEST_EMAIL = ''; // change later
+    const DEST_EMAIL = 'jacob.gain04@gmail.com'; // change later
 
     btn.addEventListener('click', () => {
       const type = document.getElementById('type')?.value;
@@ -180,13 +224,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const phone = document.getElementById('phone')?.value.trim();
       const message = document.getElementById('message')?.value.trim();
 
+      // Don’t reset anything — just prompt and return
       if (!type || !name || !email || !message) {
         alert('Please complete all required fields.');
         return;
       }
 
       const subject = `${type} - ${name}`;
-
       const body = `
 Full Name: ${name}
 Email: ${email}
@@ -194,19 +238,23 @@ Phone: ${phone || '(not provided)'}
 
 Message:
 ${message}
-    `.trim();
+  `.trim();
 
       const mailto =
         `mailto:${encodeURIComponent(DEST_EMAIL)}` +
         `?subject=${encodeURIComponent(subject)}` +
         `&body=${encodeURIComponent(body)}`;
 
-      window.location.href = mailto;
-
+      // Show feedback FIRST so it doesn’t flash
       if (feedback) {
         feedback.hidden = false;
         feedback.innerHTML = `<p>Your email app should open now. Please attach any files manually, then press Send.</p>`;
       }
+
+      // Give the DOM a moment to paint, then open mail client
+      setTimeout(() => {
+        window.location.href = mailto;
+      }, 50);
     });
   })();
 });
