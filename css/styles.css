@@ -301,7 +301,7 @@ section.hero {
   object-position: center;
   display: block;
   filter: brightness(0.8);
-  /* darken image slightly for text contrast */
+  transition: opacity 350ms ease;
 }
 
 /* Subtle overlay to improve legibility */
