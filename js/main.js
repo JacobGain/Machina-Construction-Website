@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = src;
     });
 
-    const intervalMs = 5000; // 5s rotation, change if you want
+    const intervalMs = 3500; // 4s rotation
 
     setInterval(() => {
       i = (i + 1) % heroImages.length;
