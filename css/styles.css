@@ -349,7 +349,7 @@ section.hero {
 }
 
 /* ---------------------------------------------
-   6) Services (HOME) – Cards & Carousel
+   6) Services (HOME)
 --------------------------------------------- */
 .services {
   padding: 2em 1.5em;
@@ -363,56 +363,81 @@ section.hero {
   text-align: center;
 }
 
-/* Grid layout (2×2) */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2em;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
 }
 
-.service {
-  background: white;
-  padding: 1.5em;
-  border-radius: 10px;
-  box-shadow: var(--card-shadow);
+.service-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  transition: box-shadow 160ms ease, transform 160ms ease;
+  align-self: start;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: var(--card-shadow);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-.service:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
 }
 
-.service:focus-within {
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14), var(--ring-focus);
+.service-card:focus-within {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14), var(--ring-focus);
+  border-color: transparent;
 }
 
-/* HOME carousel cards’ images — preserve likeness with letterbox */
-.services .service img {
+.service-card-media {
+  margin: 0;
+  min-height: 220px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #d9d9d9;
+}
+
+.service-card-media img {
   width: 100%;
-  height: auto;
-  max-height: 360px;
-  object-fit: contain;
-  background: #000;
-  border-radius: 6px;
-  margin-bottom: 1em;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.service h3 {
-  font-size: 1.6em;
-  text-align: center;
+.service-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.2rem 1.2rem 1.3rem;
+}
+
+.service-card-body h3 {
+  margin-bottom: 0.45rem;
+  font-size: 1.2rem;
+  line-height: 1.25;
   color: var(--ink-900);
 }
 
-.service p {
-  font-size: 1rem;
-  line-height: 1.55;
-  margin-top: 0.9em;
-  margin-left: 1.25em;
-  margin-right: 1.25em;
+.service-card-summary {
+  margin-bottom: 1rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--ink-700);
+}
+
+.service-details {
+  margin-top: 0.95rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.service-details p {
+  margin-bottom: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
 }
 
 /* ---- Carousel: BASE (shared minimal rules) ---- */
@@ -650,7 +675,7 @@ section.hero {
 }
 
 /* View More / Show Less (gradient) */
-.project-item .more-info {
+.more-info {
   display: block;
   width: 100%;
   padding: 0.75em 1em;
@@ -666,17 +691,17 @@ section.hero {
   transition: filter 140ms ease, transform 140ms ease, box-shadow 140ms ease;
 }
 
-.project-item .more-info:hover {
+.more-info:hover {
   filter: brightness(0.95);
   transform: translateY(-1px);
 }
 
-.project-item .more-info[aria-expanded="true"] {
+.more-info[aria-expanded="true"] {
   filter: brightness(0.97);
   box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
 }
 
-.project-item .more-info:focus-visible {
+.more-info:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(246, 183, 4, 0.25);
 }
@@ -969,10 +994,6 @@ form button:hover {
     font-size: 2rem;
   }
 
-  .service p {
-    margin-left: 1.25em;
-    margin-right: 1.25em;
-  }
 }
 
 /* Mobile landscape & small tablets */
@@ -1018,16 +1039,16 @@ form button:hover {
   }
 
   .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25em;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 
-  .service h3 {
-    font-size: 1.35em;
+  .service-card-body {
+    padding: 1rem;
   }
 
-  .services .service img {
-    max-height: 300px;
+  .service-card-body h3 {
+    font-size: 1.1rem;
   }
 
   .carousel .carousel-btn,
@@ -1084,8 +1105,12 @@ form button:hover {
     top: 18%;
   }
 
-  .services .service img {
-    max-height: 240px;
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card-media {
+    min-height: 210px;
   }
 
   .project-gallery {

@@ -22,7 +22,6 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="past-projects.html">Past Projects</a></li>
         <li><a href="careers.html">Careers</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -30,7 +29,6 @@
   </header>
 
   <main id="main">
-    <!-- Hero section with mission statement -->
     <section class="hero">
       <img class="hero-img" src="images/home-page/hero.JPEG" alt="Machina crew installing large-diameter pipe" />
       <div class="hero-content">
@@ -46,16 +44,16 @@
         solutions within the Sewer and Watermain industry while protecting the environment and upholding the
         highest standards of safety and community responsibility. Guided by integrity and a commitment to
         excellence, we continuously advance through education, technology, and the development of a skilled,
-        diverse workforce. Our vision is to be a leading force in modern infrastructure—shaping the future of
+        diverse workforce. Our vision is to be a leading force in modern infrastructure, shaping the future of
         the industry through innovation, sustainability, and a steadfast commitment to empowering the next
         generation of professionals.
       </p>
     </section>
+
     <section class="core-values fade-in">
       <h2>Our Core Values</h2>
 
       <div class="values-grid">
-        <!-- Excellence -->
         <article class="value-card" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
@@ -66,11 +64,10 @@
             </span>
             <h3 class="value-title">Excellence</h3>
           </div>
-          <p class="value-body">We hold ourselves to the highest standards in everything we do—from project execution to
+          <p class="value-body">We hold ourselves to the highest standards in everything we do, from project execution to
             customer service.</p>
         </article>
 
-        <!-- Integrity -->
         <article class="value-card" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
@@ -83,7 +80,6 @@
           <p class="value-body">Honesty, transparency, and accountability guide our actions and relationships.</p>
         </article>
 
-        <!-- Innovation -->
         <article class="value-card" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
@@ -97,7 +93,6 @@
             of our industry.</p>
         </article>
 
-        <!-- Safety & Sustainability -->
         <article class="value-card" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
@@ -112,7 +107,6 @@
             the communities we serve.</p>
         </article>
 
-        <!-- Education & Growth -->
         <article class="value-card" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
@@ -126,7 +120,6 @@
             our team.</p>
         </article>
 
-        <!-- Diversity & Inclusion -->
         <article class="value-card" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
@@ -143,82 +136,120 @@
       </div>
     </section>
 
-    <!-- Services overview section -->
     <section class="services">
       <h2>Our Services</h2>
 
-      <div class="services-carousel carousel" data-auto="5000" style="max-width: 900px; margin: 0 auto;">
-        <!-- Previous button -->
-        <button class="carousel-btn prev" aria-label="Previous service">‹</button>
+      <div class="services-grid">
+        <article class="service-card">
+          <figure class="service-card-media">
+            <img src="images/storm-sewer/photo-58.JPEG" alt="Crew installing large diameter sewer main">
+          </figure>
+          <div class="service-card-body">
+            <h3>Large Diameter Sewer Main Installation</h3>
+            <p class="service-card-summary">Deep utility installation delivered with precise grade control.</p>
+            <button type="button" class="more-info" aria-expanded="false" aria-controls="service-sewer-details">Show more info</button>
+            <div id="service-sewer-details" class="service-details" hidden>
+              <p>
+                Our team installs large-diameter sewer infrastructure for municipal, subdivision, and capital works
+                projects using disciplined excavation, shoring, bedding, and testing practices that keep production
+                moving while protecting adjacent services and public space.
+              </p>
+            </div>
+          </div>
+        </article>
 
-        <!-- Carousel track wrapper -->
-        <div class="carousel-track-container" style="height: 600px;">
-          <ul class="carousel-track">
-            <!-- Slide 1 -->
-            <li class="carousel-slide">
-              <div class="service">
-                <img src="images/storm-sewer/photo-58.JPEG" alt="Large-Diameter Sewer Main Installation">
-                <h3>Large-Diameter Sewer Main Installation</h3>
-                <p>
-                  Our team specializes in the precise installation of large-diameter sewer mains. Utilizing both
-                  traditional open-cut methods and advanced trenchless technology, we deliver efficient, compliant
-                  solutions that minimize community disruption. From initial planning and regulatory permitting through
-                  to final testing and commissioning, we ensure every pipeline meets the highest standards for
-                  durability, performance, and environmental protection.
-                </p>
-              </div>
-            </li>
-            <!-- Slide 2 -->
-            <li class="carousel-slide">
-              <div class="service">
-                <img src="images/watermain-sanitary/photo-107.JPEG" alt="Watermain Installation and Rehabilitation">
-                <h3>Large and Small Diameter Watermain Installation</h3>
-                <p>
-                  Machina Construction provides end-to-end watermain services for both new developments and system
-                  upgrades. We collaborate with municipal engineers and developers to design networks that guarantee
-                  reliable water delivery. Our process includes hydrostatic testing, chlorination, and commissioning,
-                  ensuring long-term integrity and safety for critical water distribution infrastructure.
-                </p>
-              </div>
-            </li>
-            <!-- Slide 3 -->
-            <li class="carousel-slide">
-              <div class="service">
-                <img src="images/stormwater.jpg" alt="Stormwater Management Systems">
-                <h3>Stormwater Management Systems</h3>
-                <p>
-                  Effective stormwater management is essential to protect communities and natural habitats from flooding
-                  and erosion. We design and construct storm sewer networks, retention and detention basins, and
-                  engineered drainage channels that comply with environmental regulations. Our crews employ best
-                  practices in erosion control and sediment management to safeguard waterways and reduce flood risk on
-                  every project.
-                </p>
-              </div>
-            </li>
-            <!-- Slide 4 -->
-            <li class="carousel-slide">
-              <div class="service">
-                <img src="images/site-servicing.jpg" alt="Complete Site Servicing Solutions">
-                <h3>Complete Site Servicing Solutions</h3>
-                <p>
-                  As a trusted site servicing contractor, Machina Construction delivers turn-key solutions for
-                  subdivisions, commercial developments, and capital works. We coordinate excavation, grading, and
-                  installation of all utilities—including earthworks, stormwater management, wastewater, watermains, and
-                  restoration — to ensure seamless
-                  integration with existing networks. Our experienced crews manage every aspect of site preparation,
-                  enabling developers to advance quickly and efficiently.
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
+        <article class="service-card">
+          <figure class="service-card-media">
+            <img src="images/watermain-sanitary/photo-107.JPEG" alt="Watermain installation in active construction area">
+          </figure>
+          <div class="service-card-body">
+            <h3>Large and Small Diameter Watermain Installation</h3>
+            <p class="service-card-summary">Reliable water infrastructure for new builds and system upgrades.</p>
+            <button type="button" class="more-info" aria-expanded="false" aria-controls="service-watermain-details">Show more info</button>
+            <div id="service-watermain-details" class="service-details" hidden>
+              <p>
+                We deliver full watermain installation scopes, from excavation and pipe placement through pressure
+                testing, chlorination, and commissioning, with the attention to detail needed for both small-diameter
+                runs and major transmission work.
+              </p>
+            </div>
+          </div>
+        </article>
 
-        <!-- Next button -->
-        <button class="carousel-btn next" aria-label="Next service">›</button>
+        <article class="service-card">
+          <figure class="service-card-media">
+            <img src="images/watermain-sanitary/photo-128.JPEG" alt="Stormwater infrastructure construction work">
+          </figure>
+          <div class="service-card-body">
+            <h3>Stormwater Management</h3>
+            <p class="service-card-summary">Drainage systems built to control flow, erosion, and runoff.</p>
+            <button type="button" class="more-info" aria-expanded="false" aria-controls="service-stormwater-details">Show more info</button>
+            <div id="service-stormwater-details" class="service-details" hidden>
+              <p>
+                Machina constructs storm sewer networks, chambers, outfalls, and related drainage infrastructure that
+                help developments manage runoff responsibly and meet project drainage and environmental requirements.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <figure class="service-card-media">
+            <img src="images/watermain-sanitary/photo-69.JPEG" alt="Underground servicing work on a prepared site">
+          </figure>
+          <div class="service-card-body">
+            <h3>Site Servicing</h3>
+            <p class="service-card-summary">Coordinated underground utility work that keeps sites moving.</p>
+            <button type="button" class="more-info" aria-expanded="false" aria-controls="service-site-details">Show more info</button>
+            <div id="service-site-details" class="service-details" hidden>
+              <p>
+                We provide integrated site servicing for subdivisions, commercial sites, and municipal projects by
+                coordinating excavation, utility installation, grading, and restoration so each phase connects cleanly
+                with the next.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <figure class="service-card-media">
+            <img src="images/home-page/photo-10.JPEG" alt="Pre-construction planning meeting on site">
+          </figure>
+          <div class="service-card-body">
+            <h3>Pre Construction Services</h3>
+            <p class="service-card-summary">Early planning that de-risks schedule, scope, and site logistics.</p>
+            <button type="button" class="more-info" aria-expanded="false" aria-controls="service-precon-details">Show more info</button>
+            <div id="service-precon-details" class="service-details" hidden>
+              <p>
+                Before crews mobilize, we support projects with constructability input, sequencing, utility planning,
+                procurement coordination, and site approach reviews that help owners and developers make cleaner
+                decisions up front.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <figure class="service-card-media">
+            <img src="images/home-page/photo-29.JPEG" alt="Heavy equipment performing earthworks on site">
+          </figure>
+          <div class="service-card-body">
+            <h3>Earthworks</h3>
+            <p class="service-card-summary">Bulk excavation and grading shaped for efficient site readiness.</p>
+            <button type="button" class="more-info" aria-expanded="false" aria-controls="service-earthworks-details">Show more info</button>
+            <div id="service-earthworks-details" class="service-details" hidden>
+              <p>
+                Our earthworks scopes cover excavation, backfill, rough grading, and material movement with an
+                emphasis on production efficiency, subgrade preparation, and maintaining workable conditions across the
+                site.
+              </p>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
-
   </main>
+
   <footer>
     <p><strong>Machina Construction Ltd.</strong></p>
     <p>201 Spinnaker Way - Unit 11, Concord, ON</p>
