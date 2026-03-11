@@ -27,53 +27,84 @@
       </ul>
     </nav>
   </header>
+
   <main id="main">
     <h1 class="page-title">Contact</h1>
 
-    <p class="file-note">
-      * Attachments must be added manually in your email application before sending.
-    </p>
-
-    <div class="form-group full-width">
-      <label for="type">Message Type:</label>
-      <select id="type" name="type" required>
-        <option value="">Select one</option>
-        <option value="APPLICATION">Application</option>
-        <option value="INQUIRY">Inquiry</option>
-      </select>
-    </div>
-
     <section class="mission-vision fade-in">
-      <form id="contact-form" enctype="multipart/form-data" class="contact-form">
+      <form
+        id="contact-form"
+        class="contact-form"
+        method="post"
+        action="/api/contact"
+        enctype="multipart/form-data"
+        data-recipient-email="jacob.gain04@gmail.com"
+        data-max-files="5"
+        data-max-file-size-mb="5"
+        data-max-total-size-mb="15"
+        novalidate>
+        <div class="contact-intro">
+          <p>Send a general inquiry or submit a resume directly through the website once the hosting form endpoint is connected.</p>
+          <p class="file-note">Accepted files: PDF, JPG, JPEG, PNG, WEBP. Up to 5 files, 5 MB each, 15 MB total. Large images may be downscaled and compressed before upload.</p>
+        </div>
+
         <div class="form-group full-width">
-          <label for="name">Full Name:</label>
-          <input type="text" id="name" name="name" required />
+          <label for="type">Message Type</label>
+          <select id="type" name="type" required>
+            <option value="">Select one</option>
+            <option value="Application">Application</option>
+            <option value="Inquiry">Inquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required />
         </div>
 
         <div class="form-row">
           <div class="form-group half-width">
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" />
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
           </div>
 
           <div class="form-group half-width">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" />
           </div>
         </div>
 
         <div class="form-group full-width">
-          <label for="message">Message:</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
         </div>
 
-        <button type="button" id="mailto-submit">Send Message</button>
-        <div id="form-feedback" class="thank-you-message" hidden>
-          <p>Thanks for reaching out! Your message is being processed.</p>
+        <div class="form-group full-width file-upload">
+          <label for="file">Attachments</label>
+          <input
+            type="file"
+            id="file"
+            name="attachments"
+            accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+            multiple />
+          <p class="file-note">Attachments are optional. Resumes should be submitted as PDF where possible. Image files may be converted to JPG to stay within upload limits.</p>
+          <div class="file-list" aria-live="polite"></div>
         </div>
+
+        <div class="contact-honeypot" aria-hidden="true">
+          <label for="company-website">Leave this field empty</label>
+          <input type="text" id="company-website" name="company_website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <input type="hidden" name="recipient_email" value="jacob.gain04@gmail.com" />
+        <input type="hidden" name="source_page" value="contact.html" />
+
+        <button type="submit" id="contact-submit">Send Message</button>
+        <div id="form-feedback" class="form-feedback" hidden aria-live="polite"></div>
       </form>
     </section>
   </main>
+
   <footer>
     <p><strong>Machina Construction Ltd.</strong></p>
     <p>201 Spinnaker Way - Unit 11, Concord, ON</p>

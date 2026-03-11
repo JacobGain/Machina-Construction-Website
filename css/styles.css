@@ -1537,6 +1537,15 @@ form button:hover {
   max-width: 860px;
 }
 
+.contact-intro {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.contact-intro p:last-child {
+  margin-bottom: 0;
+}
+
 .contact-form label {
   display: block;
   text-align: left;
@@ -1549,6 +1558,23 @@ form button:hover {
 .contact-form select {
   width: 100%;
   box-sizing: border-box;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible,
+.contact-form select:focus-visible {
+  outline: none;
+  border-color: rgba(198, 40, 40, 0.5);
+  box-shadow: var(--ring-focus);
 }
 
 .form-row {
@@ -1574,18 +1600,36 @@ form button:hover {
   }
 }
 
-.thank-you-message {
-  margin-top: 1em;
-  background: #f0fdf4;
-  color: #155724;
-  padding: 1em;
-  border-left: 4px solid #28a745;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
 .file-note {
   font-size: 0.85rem;
   color: #666;
   margin-top: 0.4em;
+}
+
+.contact-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-left: 4px solid #28a745;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.form-feedback.is-success {
+  background: #f0fdf4;
+  color: #155724;
+}
+
+.form-feedback.is-error {
+  background: #fff4f4;
+  color: #8a1c1c;
+  border-left-color: var(--accent-red);
 }
