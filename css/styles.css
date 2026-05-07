@@ -367,13 +367,12 @@ section.hero {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .service-card {
   display: flex;
   flex-direction: column;
-  align-self: start;
   overflow: hidden;
   border-radius: 14px;
   background: #fff;
@@ -426,6 +425,10 @@ section.hero {
   font-size: 0.98rem;
   line-height: 1.5;
   color: var(--ink-700);
+}
+
+.service-card .more-info {
+  margin-top: auto;
 }
 
 .service-details {
