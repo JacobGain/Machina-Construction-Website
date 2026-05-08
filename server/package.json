@@ -7,5 +7,10 @@
     "start": "node index.js",
     "dev": "node index.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.7"
+  }
 }

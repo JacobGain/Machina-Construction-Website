@@ -38,13 +38,12 @@
         method="post"
         action="/api/contact"
         enctype="multipart/form-data"
-        data-recipient-email="jacob.gain04@gmail.com"
         data-max-files="5"
         data-max-file-size-mb="5"
         data-max-total-size-mb="15"
         novalidate>
         <div class="contact-intro">
-          <p>Send a general inquiry or submit a resume directly through the website once the hosting form endpoint is connected.</p>
+          <p>Send a general inquiry or submit a resume directly through the website.</p>
           <p class="file-note">Accepted files: PDF, JPG, JPEG, PNG, WEBP. Up to 5 files, 5 MB each, 15 MB total. Large images may be downscaled and compressed before upload.</p>
         </div>
 
@@ -96,7 +95,6 @@
           <input type="text" id="company-website" name="company_website" tabindex="-1" autocomplete="off" />
         </div>
 
-        <input type="hidden" name="recipient_email" value="jacob.gain04@gmail.com" />
         <input type="hidden" name="source_page" value="contact.html" />
 
         <button type="submit" id="contact-submit">Send Message</button>
