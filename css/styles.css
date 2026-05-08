@@ -848,6 +848,29 @@ form button:hover {
   color: var(--ink-700);
 }
 
+.about-single {
+  position: relative;
+  overflow: hidden;
+  background:
+    url("../images/logos-and-misc/overlapping1.png") center / min(88%, 900px) auto no-repeat,
+    linear-gradient(180deg, rgba(198, 40, 40, 0.05), rgba(246, 183, 4, 0.03)),
+    #ffffff;
+}
+
+.about-single::before {
+  content: none;
+}
+
+.about-single-text {
+  max-width: 950px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-single-text p + p {
+  margin-top: 1.15rem;
+}
+
 /* ---------------------------------------------
    13) Core Values
 --------------------------------------------- */
@@ -1230,7 +1253,7 @@ form button:hover {
   display: grid;
   grid-template-columns: 1.15fr 1fr; /* text a touch wider */
   gap: 1.5rem;
-  align-items: center;
+  align-items: stretch;
   padding: 1rem 0;
 }
 
@@ -1245,11 +1268,37 @@ form button:hover {
   grid-template-columns: 1fr 1.15fr;
 }
 
-.about-text p {
+.about-section .about-text {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.about-section .about-text::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1rem, 5%, 1.75rem);
+  background: url("../images/logos-and-misc/overlapping1.png") center / contain no-repeat;
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-section .about-text p {
+  position: relative;
+  z-index: 1;
   font-size: 1.05rem;
   line-height: 1.75;
   color: var(--ink-700);
   margin: 0; /* tidy blocks */
+}
+
+.about-section .about-text p + p {
+  margin-top: 1rem;
 }
 
 /* Image container */
