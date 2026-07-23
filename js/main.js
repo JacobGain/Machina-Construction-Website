@@ -20,6 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.querySelectorAll('.value-card').forEach((card) => {
+    function toggleCard() {
+      const isOpen = card.classList.toggle('active');
+      card.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    card.addEventListener('click', toggleCard);
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCard();
+      }
+    });
+  });
+
   (function initCarousels() {
     const carousels = document.querySelectorAll('.carousel');
     if (!carousels.length) return;
@@ -408,6 +423,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!heroImg) return;
 
+    const hero = heroImg.closest('.hero');
+    const toggleButton = hero?.querySelector('.hero-rotation-toggle');
     const heroImages = [
       'images/home-page/hero.JPEG',
       'images/home-page/photo-10.JPEG',
@@ -422,14 +439,60 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroImages.length <= 1) return;
 
     let index = 0;
+    let timer = null;
+    let userPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     heroImages.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
 
-    setInterval(() => {
+    function showNextImage() {
       index = (index + 1) % heroImages.length;
       heroImg.src = heroImages[index];
-    }, 3500);
+    }
+
+    function stopRotation() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startRotation() {
+      if (userPaused || document.hidden || timer) return;
+      timer = window.setInterval(showNextImage, 3500);
+    }
+
+    function updateToggleButton() {
+      if (!toggleButton) return;
+      toggleButton.textContent = userPaused ? 'Play slideshow' : 'Pause slideshow';
+      toggleButton.setAttribute('aria-pressed', String(userPaused));
+    }
+
+    toggleButton?.addEventListener('click', () => {
+      userPaused = !userPaused;
+      updateToggleButton();
+      if (userPaused) {
+        stopRotation();
+      } else {
+        startRotation();
+      }
+    });
+
+    hero?.addEventListener('mouseenter', stopRotation);
+    hero?.addEventListener('mouseleave', startRotation);
+    hero?.addEventListener('focusin', stopRotation);
+    hero?.addEventListener('focusout', startRotation);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopRotation();
+      } else {
+        startRotation();
+      }
+    });
+
+    updateToggleButton();
+    startRotation();
   })();
 });

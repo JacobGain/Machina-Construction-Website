@@ -18,9 +18,9 @@
         <a href="index.html">Machina Construction Ltd.</a>
       </div>
     </div>
-    <nav>
+    <nav aria-label="Primary navigation">
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="careers.html">Careers</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -30,18 +30,19 @@
 
   <main id="main">
     <section class="hero">
-      <img class="hero-img" src="images/home-page/hero.JPEG" alt="Machina crew installing large-diameter pipe" />
+      <img class="hero-img" src="images/home-page/hero.JPEG" alt="Machina Construction project work" />
       <div class="hero-content">
         <h1>Building the Future</h1>
         <p><b>COMMITMENT</b> to the project. <b>PRECISION</b> in workmanship. <b>EXCELLENCE</b> in leadership.</p>
       </div>
+      <!-- <button class="hero-rotation-toggle" type="button" aria-pressed="false">Pause slideshow</button> -->
     </section>
 
     <section class="mission-vision fade-in">
       <h2>Our Mission &amp; Vision</h2>
       <p>
-        At Machina Construction Ltd., we are dedicated to delivering high-quality, innovative infrastructure
-        solutions within the Sewer and Watermain industry while protecting the environment and upholding the
+        At Machina Construction Ltd. we are dedicated to delivering high-quality, innovative infrastructure
+        solutions within the sewer and watermain industry while protecting the environment and upholding the
         highest standards of safety and community responsibility. Guided by integrity and a commitment to
         excellence, we continuously advance through education, technology, and the development of a skilled,
         diverse workforce. Our vision is to be a leading force in modern infrastructure, shaping the future of
@@ -54,7 +55,7 @@
       <h2>Our Core Values</h2>
 
       <div class="values-grid">
-        <article class="value-card" tabindex="0" aria-expanded="false">
+        <article class="value-card" role="button" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -68,7 +69,7 @@
             customer service.</p>
         </article>
 
-        <article class="value-card" tabindex="0" aria-expanded="false">
+        <article class="value-card" role="button" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -80,7 +81,7 @@
           <p class="value-body">Honesty, transparency, and accountability guide our actions and relationships.</p>
         </article>
 
-        <article class="value-card" tabindex="0" aria-expanded="false">
+        <article class="value-card" role="button" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -93,7 +94,7 @@
             of our industry.</p>
         </article>
 
-        <article class="value-card" tabindex="0" aria-expanded="false">
+        <article class="value-card" role="button" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -107,7 +108,7 @@
             the communities we serve.</p>
         </article>
 
-        <article class="value-card" tabindex="0" aria-expanded="false">
+        <article class="value-card" role="button" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -120,7 +121,7 @@
             our team.</p>
         </article>
 
-        <article class="value-card" tabindex="0" aria-expanded="false">
+        <article class="value-card" role="button" tabindex="0" aria-expanded="false">
           <div class="value-head">
             <span class="value-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -150,7 +151,11 @@
             <button type="button" class="more-info" aria-expanded="false" aria-controls="service-sewer-watermain-details">Show more info</button>
             <div id="service-sewer-watermain-details" class="service-details" hidden>
               <p>
-                We provide services for both municipal and private sector projects, ranging from small scale to large scale open cut construction.  Our team has extensive experience working in a wide variety of ground conditions and manage intricate, complex underground infrastructure.  Committed to excellence we have successfully completed numerous challenging projects with precision, efficiency, and reliability.
+                We provide services for both municipal and private-sector projects, ranging from small-scale to
+                large-scale open-cut construction. Our team has extensive experience working in a wide variety of
+                ground conditions and manages intricate, complex underground infrastructure. Committed to excellence,
+                we have successfully completed numerous challenging projects with precision, efficiency, and
+                reliability.
               </p>
             </div>
           </div>
@@ -195,11 +200,11 @@
 
   <footer>
     <p><strong>Machina Construction Ltd.</strong></p>
-    <p>201 Spinnaker Way - Unit 11, Concord, ON</p>
+    <p>201 Spinnaker Way, Unit 11, Concord, ON</p>
     <p><a href="tel:4162743447">(416) 274-3447</a> | <a
-        href="mailto:info@constructionco.com">info@machinaconstruction.com</a></p>
+        href="mailto:info@machinaconstruction.com">info@machinaconstruction.com</a></p>
     <p>&copy; 2026 Machina Construction Ltd. All rights reserved.</p>
-    <img src="./images/logos-and-misc/IHSA-COR-certified.png" alt="Machina Construction Logo" />
+    <img src="./images/logos-and-misc/IHSA-COR-certified.png" alt="IHSA COR certified" />
   </footer>
   <script src="js/main.js"></script>
 </body>
