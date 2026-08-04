@@ -874,6 +874,11 @@ section.hero {
   object-position: center;
 }
 
+/* Compensate for extra whitespace baked into these square image files. */
+.company-logo-slot img.company-logo--compact {
+  transform: scale(1.7);
+}
+
 /* ---------------------------------------------
    13) Core Values
 --------------------------------------------- */
@@ -1025,6 +1030,10 @@ section.hero {
 
   .company-logo-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .company-logo-slot img.company-logo--compact {
+    transform: scale(1.45);
   }
 
   .company-logo-slot:last-child {
