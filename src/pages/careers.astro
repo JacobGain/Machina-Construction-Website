@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteImage from "../components/SiteImage.astro";
+---
+<Layout page="Careers">
+
+    <h1 class="page-title">Careers</h1>
+    <section class="mission-vision">
+      <h2 class="section-title">Join Our Team</h2>
+      <div class="about-row">
+        <div class="about-text">
+          <p>
+            At Machina Construction Ltd., we believe that building the future starts with building strong teams.
+            Whether you're a seasoned industry professional or just beginning your career, we offer a collaborative
+            environment where your skills and growth matter.
+          </p>
+          <p>
+            We pride ourselves on our commitment to safety, craftsmanship, and innovation—values reflected in every
+            member of our crew. From hands-on experience to leadership opportunities, your path to growth starts here.
+          </p>
+          <a href="/contact.html?type=Application" class="apply-button">Apply Now</a>
+        </div>
+        <figure class="about-media">
+          <SiteImage src="images/careers-page/photo-46.JPEG" alt="Machina team on-site with equipment" sizes="(max-width: 768px) calc(100vw - 2rem), 48vw" priority />
+        </figure>
+      </div>
+    </section>
+
+</Layout>

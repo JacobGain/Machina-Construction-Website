@@ -9,6 +9,9 @@ server/node_modules/
 
 # Build and generated output
 dist/
+.astro/
+test-results/
+playwright-report/
 build/
 .cache/
 .parcel-cache/

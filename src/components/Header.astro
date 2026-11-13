@@ -1,0 +1,23 @@
+---
+import SiteImage from "./SiteImage.astro";
+interface Props { current: string; }
+const { current } = Astro.props;
+---
+  <header inert={current === 'Home'} aria-hidden={current === 'Home' ? 'true' : undefined}>
+    <div class="header-left">
+      <a href="/index.html" class="logo-img">
+        <SiteImage src="images/logos-and-misc/Machina-Logo.png" alt="Machina Construction Logo" sizes="80px" priority />
+      </a>
+      <div class="logo">
+        <a href="/index.html">Machina Construction Ltd.</a>
+      </div>
+    </div>
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="/index.html" aria-current={current === "Home" ? "page" : undefined}>Home</a></li>
+        <li><a href="/about.html" aria-current={current === "About" ? "page" : undefined}>About</a></li>
+        <li><a href="/careers.html" aria-current={current === "Careers" ? "page" : undefined}>Careers</a></li>
+        <li><a href="/contact.html" aria-current={current === "Contact" ? "page" : undefined}>Contact</a></li>
+      </ul>
+    </nav>
+  </header>

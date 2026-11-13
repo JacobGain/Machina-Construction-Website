@@ -1,0 +1,53 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollControls from '../components/ScrollControls.astro';
+import logo from '../../images/logos-and-misc/Machina-Logo.png';
+import { getImage } from 'astro:assets';
+import storyWatermark from '../../images/logos-and-misc/overlapping1.png';
+import '../styles/global.css';
+
+interface Props {
+  page: string;
+  minimal?: boolean;
+  noindex?: boolean;
+  redirect?: string;
+}
+const { page, minimal = false, noindex = false, redirect } = Astro.props;
+const descriptions: Record<string, string> = {
+  Home: 'Machina Construction Ltd. — sewer and watermain installation, stormwater management, and earthworks.',
+  About: 'Founded in 2019, Machina Construction Ltd. was built on a strong foundation of experience, expertise, and a shared vision for excellence in the sewer and watermain industry.',
+  Careers: 'At Machina Construction Ltd., we believe that building the future starts with building strong teams.',
+  Contact: 'Send a general inquiry or submit a resume directly through the website.',
+};
+const title = `Machina Construction Ltd. - ${page}`;
+const path = page === 'Home' ? '/' : `/${page.toLowerCase()}.html`;
+const canonical = new URL(path, Astro.site);
+const watermark = page === 'About' ? await getImage({ src: storyWatermark, format: 'webp', quality: 90 }) : null;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#202421" />
+    <title>{title}</title>
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <>
+      <meta name="description" content={descriptions[page]} />
+      <link rel="canonical" href={canonical} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={descriptions[page]} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={canonical} />
+    </>}
+    <link rel="icon" type="image/png" href={logo.src} />
+    {redirect && <meta http-equiv="refresh" content={`0; url=${redirect}`} />}
+  </head>
+  <body class:list={[`page-${page.toLowerCase().replaceAll(' ', '-')}`, { minimal }]} style={watermark ? { '--story-watermark': `url("${watermark.src}")` } : undefined}>
+    {!minimal && <Header current={page} />}
+    <main id="main"><slot /></main>
+    {!minimal && <Footer />}
+    {!minimal && <ScrollControls />}
+    <script>import '../scripts/reveal';</script>
+  </body>
+</html>

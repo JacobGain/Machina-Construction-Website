@@ -13,13 +13,15 @@ cd server
 npm install
 ```
 
-4. Start the site and contact API:
+4. Build the static site from the repository root with `npm ci` and `npm run build`, then start the site and contact API from this folder:
 
 ```bash
 npm start
 ```
 
 The site will be available at `http://localhost:3000`, and the form will post to `/api/contact`.
+
+The server serves the generated `../dist/` directory. It resolves `.env` from the repository root regardless of where it is started. Run `npm run dev` at the repository root for Astro frontend development; it proxies `/api/contact` to this server on port 3000.
 
 ## Docker
 
