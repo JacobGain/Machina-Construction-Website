@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import { sourceImage } from '../lib/images';
+
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  sizes?: string;
+  priority?: boolean;
+}
+
+const { src, alt, class: className, sizes = '100vw', priority = false } = Astro.props;
+const image = sourceImage(src);
+const isLogo = src.includes('logos-and-misc');
+const candidates = isLogo ? [160, 240, 360, 480] : [480, 800, 1200, 1600];
+const widths = [...new Set([...candidates.filter((width) => width < image.width), Math.min(image.width, candidates.at(-1)!)])];
+---
+<Image
+  src={image}
+  width={Math.min(image.width, isLogo ? 480 : 1600)}
+  alt={alt}
+  class={className}
+  widths={widths}
+  sizes={sizes}
+  format="webp"
+  quality={82}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority && !isLogo ? 'high' : 'auto'}
+  decoding="async"
+  data-source={src}
+/>

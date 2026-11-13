@@ -1,0 +1,67 @@
+---
+import { getImage } from 'astro:assets';
+import { sourceImage } from '../lib/images';
+import SiteImage from './SiteImage.astro';
+
+const paths = [
+  'images/home-page/hero.JPEG',
+  'images/home-page/photo-10.JPEG',
+  'images/home-page/photo-15.JPEG',
+  'images/home-page/photo-29.JPEG',
+  'images/home-page/photo-60.JPEG',
+  'images/home-page/photo-137.JPEG',
+  'images/home-page/photo-141.JPEG',
+  'images/home-page/photo-144.JPEG',
+];
+const slides = await Promise.all(paths.map(async (path) => {
+  const source = sourceImage(path);
+  const widths = [...new Set([640, 1024, 1600, 2048].map((width) => Math.min(width, source.width)))];
+  const variants = await Promise.all(widths.map(async (width) => {
+    const image = await getImage({ src: source, width: Math.min(width, source.width), format: 'webp', quality: 82 });
+    return { src: image.src, width: image.attributes.width };
+  }));
+  return {
+    src: variants.at(-1)!.src,
+    srcset: variants.map((image) => `${image.src} ${image.width}w`).join(', '),
+    source: path,
+  };
+}));
+---
+<section id="top" class="hero" data-slides={JSON.stringify(slides)} aria-labelledby="hero-title">
+  <img
+    class="hero-img"
+    src={slides[0].src}
+    srcset={slides[0].srcset}
+    sizes="100vw"
+    width="2048"
+    height="1536"
+    alt="Machina Construction project work"
+    fetchpriority="high"
+    decoding="async"
+    data-source={paths[0]}
+  />
+  <div class="hero-content">
+    <a class="hero-brand" href="/index.html" aria-label="Machina Construction Ltd. - Home">
+      <SiteImage src="images/logos-and-misc/Machina-Logo.png" alt="Machina Construction Logo" sizes="(max-width: 768px) 18vw, 200px" priority />
+    </a>
+    <div class="hero-copy">
+      <h1 id="hero-title" tabindex="-1">
+        <span class="hero-statement"><b>COMMITMENT</b> to the project.</span>
+        <span class="hero-statement"><b>PRECISION</b> in workmanship.</span>
+        <span class="hero-statement"><b>EXCELLENCE</b> in leadership.</span>
+      </h1>
+      <nav class="hero-nav" aria-label="Hero navigation">
+      <ul>
+        <li><a href="/about.html">About <span aria-hidden="true">↗</span></a></li>
+        <li><a href="/careers.html">Careers <span aria-hidden="true">↗</span></a></li>
+        <li><a href="/contact.html">Contact <span aria-hidden="true">↗</span></a></li>
+      </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <a class="hero-scroll" href="#learn-more">Learn more <span aria-hidden="true">↓</span></a>
+    <button class="hero-rotation-toggle" type="button" aria-pressed="false" hidden>Pause slideshow</button>
+  </div>
+</section>
+<script>import '../scripts/hero';</script>
